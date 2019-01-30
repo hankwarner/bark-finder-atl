@@ -11,9 +11,7 @@ module.exports = {
 
         authenticationQueries.createUser(newUser, (err, user) => {
             if(err) {
-                res.status(400).send({
-                    error: 'Account is already in use or is invalid'
-                })
+                res.status(400).send(err.message)
             } else {
                 res.send(user.toJSON())
             }

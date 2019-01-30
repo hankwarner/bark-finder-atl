@@ -11,8 +11,8 @@ module.exports = {
             let user = await User.create({email: newUser.email, username: newUser.username, password: hashedPassword})
             return callback(null, user)
 
-        } catch(err) {
-            callback(err)
+        } catch(error) {
+            callback(error)
         }
     }
 }
