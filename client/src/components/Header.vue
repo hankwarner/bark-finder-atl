@@ -19,6 +19,11 @@
 
          <v-toolbar-items class="hidden-sm-and-down">
             <v-btn flat
+                @click="navigateTo({name: 'login'})">
+                Login
+            </v-btn>
+            
+            <v-btn flat
                 @click="navigateTo({name: 'register'})">
                 Sign Up
             </v-btn>

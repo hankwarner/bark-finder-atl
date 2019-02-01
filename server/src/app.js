@@ -5,10 +5,12 @@ const morgan = require('morgan')
 const {sequelize} = require('./db/models')
 const config = require('./config/config')
 
+
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
+config.init(app, express)
 
 require('./routes')(app)
 
