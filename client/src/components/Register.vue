@@ -61,4 +61,10 @@ export default {
   .error {
     color: red;
   }
+
+  .v-text-field {
+    width: 20%;
+    margin-left: 40%;
+  }
+
 </style>
