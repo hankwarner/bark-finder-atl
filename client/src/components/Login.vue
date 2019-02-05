@@ -2,22 +2,25 @@
   <div>
     <h1>Login</h1>
 
-    <v-text-field
-      type="username"
-      name="username"
-      v-model="username"
-      placeholder="Username" />
+    <form>
+      <v-text-field
+        type="username"
+        name="username"
+        v-model="username"
+        placeholder="Username" />
 
-    <v-text-field
-      type="password"
-      name="password"
-      v-model="password"
-      placeholder="Password" />
+      <v-text-field
+        type="password"
+        name="password"
+        v-model="password"
+        placeholder="Password" />
 
-      <div class="error" v-html="error" />
+        <div class="error" v-html="error" />
 
-    <v-btn
-      @click="login">Login</v-btn>
+      <v-btn
+        @click="login">Login</v-btn>
+    </form>
+    
   </div>
 </template>
 
@@ -41,7 +44,7 @@ export default {
         })
       } catch(err) {
         //need to define error here
-        this.error = err
+        this.error = err.message.toString()
       }
       
     }

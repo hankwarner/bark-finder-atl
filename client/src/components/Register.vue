@@ -1,28 +1,32 @@
 <template>
   <div>
     <h1>Register</h1>
-    <v-text-field
-      type="email"
-      name="email"
-      v-model="email"
-      placeholder="Email" />
 
-    <v-text-field
-      type="username"
-      name="username"
-      v-model="username"
-      placeholder="Username" />
+    <form>
+      <v-text-field
+        type="email"
+        name="email"
+        v-model="email"
+        placeholder="Email" />
 
-    <v-text-field
-      type="password"
-      name="password"
-      v-model="password"
-      placeholder="Password" />
+      <v-text-field
+        type="username"
+        name="username"
+        v-model="username"
+        placeholder="Username" />
 
-      <div class="error" v-html="error" />
+      <v-text-field
+        type="password"
+        name="password"
+        v-model="password"
+        placeholder="Password" />
 
-    <v-btn
-      @click="register">Register</v-btn>
+        <div class="error" v-html="error" />
+
+      <v-btn
+        @click="register">Register</v-btn>
+    </form>
+    
   </div>
 </template>
 

@@ -9,7 +9,10 @@
         </v-toolbar-title>
         
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn flat>Parks</v-btn>
+            <v-btn flat
+                @click="navigateTo({name: 'parks'})">
+                Parks
+            </v-btn>
             <v-btn flat>Restaurants</v-btn>
             <v-btn flat>Events</v-btn>
             
