@@ -16,7 +16,20 @@ module.exports = {
                 res.status(400).send(err.message)
             } else {
                 passport.authenticate("local")(req, res, () => {
-                    res.send(user.toJSON())
+                    req.logIn(user, err => {
+                        User.findOne({
+                            where: {
+                                username: user.username
+                            },
+                        }).then(user => {
+                            const token = jwt.sign({ id: user.username }, jwtSecret.secret)
+                            res.status(200).send({
+                                auth: true,
+                                token: token,
+                                message: 'Registration successful'
+                            })
+                        })
+                    })
                 })
             }
         })
