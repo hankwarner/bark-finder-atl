@@ -4,8 +4,14 @@ export default {
     register(credentials) {
         return Api().post('register', credentials)
     },
+    
+    //pass headers (as an object)
     login(credentials) {
-        return Api().post('login', credentials)
+        Api().post('login', credentials)
+        .then((user) => {
+            let token = user.data.token
+            //send to local storage?
+        })
     }
 }
 

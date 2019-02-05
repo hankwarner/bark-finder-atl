@@ -32,6 +32,7 @@ export default {
     return {
       username: '',
       password: '',
+      //token: null,
       error: null
     }
   },

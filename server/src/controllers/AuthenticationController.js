@@ -1,5 +1,8 @@
 const authenticationQueries = require('../db/queries/authenticationQueries')
 const passport = require("passport")
+const User = require('../db/models').User
+const jwtSecret = require('../config/jwtConfig')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
     register(req, res) {
@@ -13,7 +16,6 @@ module.exports = {
                 res.status(400).send(err.message)
             } else {
                 passport.authenticate("local")(req, res, () => {
-                    req.flash("notice", "You've successfully signed in!");
                     res.send(user.toJSON())
                 })
             }
@@ -21,17 +23,30 @@ module.exports = {
 
     },
 
-    login(req, res) {
-        passport.authenticate("local")(req, res, function () {
-            if(!req.user){
-                //not showing in console when login fails
-                console.log('improper credentials')
-                req.flash("notice", "Sign in failed. Please try again.")
-            } else {
-                console.log('you have successfully logged in')
-                res.send(req.user.toJSON())
-                req.flash("notice", "You've successfully signed in!")
+    login(req, res, next) {
+        passport.authenticate('login', (err, user, info) => {
+            if(err) {
+                console.log(err)
             }
-        })
+            if(info !== undefined) {
+                console.log(info.message)
+                res.send(info.message)
+            } else {
+                req.logIn(user, err => {
+                    User.findOne({
+                        where: {
+                            username: user.username
+                        },
+                    }).then(user => {
+                        const token = jwt.sign({ id: user.username }, jwtSecret.secret)
+                        res.status(200).send({
+                            auth: true,
+                            token: token,
+                            message: 'Login successful'
+                        })
+                    })
+                })
+            }
+        })(req, res, next)
     }
 }

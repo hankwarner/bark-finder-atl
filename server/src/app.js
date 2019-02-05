@@ -8,6 +8,7 @@ const config = require('./config/config')
 
 const app = express()
 app.use(morgan('combined'))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 config.init(app, express)

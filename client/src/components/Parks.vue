@@ -2,7 +2,8 @@
     <div>
         <h1>Parks</h1>
             <ul
-            v-for="(park, key) in parks">
+            v-for="(park) in parks"
+            v-bind:key="park.id">
                 <li>{{park.name}}</li>
                 <li>{{park.neighborhood}}</li>
                 <li>{{park.address}}</li>
