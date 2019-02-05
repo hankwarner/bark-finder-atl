@@ -8,9 +8,10 @@ export default {
     //pass headers (as an object)
     login(credentials) {
         Api().post('login', credentials)
-        .then((user) => {
-            let token = user.data.token
-            //send to local storage?
+        .then((res) => {
+            let token = res.data.token
+            //save token to local storage
+            localStorage.setItem('token', token)
         })
     }
 }

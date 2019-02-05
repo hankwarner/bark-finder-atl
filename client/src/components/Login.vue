@@ -32,17 +32,19 @@ export default {
     return {
       username: '',
       password: '',
-      //token: null,
       error: null
     }
   },
   methods: {
     async login() {
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           username: this.username,
           password: this.password
         })
+
+        this.$store.dispatch('setToken', localStorage.token)
+        //this.$store.dispatch('setUser', response.data.username)
       } catch(err) {
         //need to define error here
         this.error = err.message.toString()
