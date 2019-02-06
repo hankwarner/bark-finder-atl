@@ -26,7 +26,8 @@ module.exports = {
                             res.status(200).send({
                                 auth: true,
                                 token: token,
-                                message: 'Registration successful'
+                                message: 'Registration successful',
+                                user: user.username
                             })
                         })
                     })
@@ -55,7 +56,8 @@ module.exports = {
                         res.status(200).send({
                             auth: true,
                             token: token,
-                            message: 'Login successful'
+                            message: 'Login successful',
+                            user: user.username
                         })
                     })
                 })

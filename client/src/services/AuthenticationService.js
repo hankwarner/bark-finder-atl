@@ -10,9 +10,22 @@ export default {
         Api().post('login', credentials)
         .then((res) => {
             let token = res.data.token
-            //save token to local storage
+            let user = res.data.user
+            //save token and user to local storage
             localStorage.setItem('token', token)
+            localStorage.setItem('user', user)
         })
+    },
+
+    logout(credentials) {
+        Api().post('logout', credentials)
+        // .then((res) => {
+        //     // let token = res.data.token
+        //     // let user = res.data.user
+        //     //save token and user to local storage
+        //     // localStorage.setItem('token', token)
+        //     // localStorage.setItem('user', user)
+        // })
     }
 }
 
