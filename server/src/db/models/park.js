@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
   }, {});
   Park.associate = function(models) {
-    // associations will be defined here
+    Park.hasMany(models.Review, {
+      foreignKey: "parkId",
+      as: "reviews"
+    })
   };
   return Park;
 };
