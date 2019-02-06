@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Run All Tests",
-            "program": "${workspaceRoot}/node_modules/jasmine/bin/jasmine.js",
+            "program": "${workspaceRoot}/server/node_modules/jasmine/bin/jasmine.js",
             "internalConsoleOptions": "openOnSessionStart",
             "env": {
                 "NODE_ENV": "test"
