@@ -1,15 +1,44 @@
 <template>
     <div>
-        <h1>Parks</h1>
-            <ul
+      <v-container fluid >
+          <v-layout row wrap justify-space-around
             v-for="(park) in parks"
             v-bind:key="park.id">
-                <li>{{park.name}}</li>
-                <li>{{park.neighborhood}}</li>
-                <li>{{park.address}}</li>
-                <li>{{park.description}}</li>
-            </ul>
-        
+              
+              <v-flex d-flex xs12 md5>
+                <v-img 
+                  class="image" 
+                  :src="park.image"
+                  aspect-ratio="2"
+                  alt="dog park"
+                  @click="navigateTo({
+                    name: 'park',
+                    params: {
+                      parkId: park.id
+                    }
+                  })">
+                </v-img>
+              </v-flex>
+              
+              <v-flex d-flex xs12 md6>
+                <v-layout row wrap>
+
+                  <v-flex d-flex xs12 md6>
+                    <p>{{park.name}}</p>
+                  </v-flex>
+
+                  <v-flex d-flex xs12 md6>
+                    <p>{{park.neighborhood}}</p>
+                  </v-flex>
+
+                  <v-flex d-flex xs12 md12>
+                    <p>{{park.description}}</p>
+                  </v-flex>
+
+                </v-layout>
+              </v-flex>
+          </v-layout>
+      </v-container>
     </div>
 </template>
 
@@ -24,8 +53,7 @@ export default {
       error: null
     }
   },
-  //mounted?
-  created() {
+  mounted() {
     this.callParks()
   },
 //   watch() {
@@ -44,12 +72,20 @@ export default {
         //need to define error here
         this.error = err
       }
-      
+    },
+
+    navigateTo(route) {
+      this.$router.push(route)
     }
+
   }
 }
 </script>
 
 <style scoped>
+/* .image {
+  width: 30%;
+  height: 80%;
+} */
 
 </style>
