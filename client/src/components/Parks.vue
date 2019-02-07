@@ -24,6 +24,7 @@ export default {
       error: null
     }
   },
+  //mounted?
   created() {
     this.callParks()
   },
@@ -36,7 +37,7 @@ export default {
         this.loading = true
 
       try {
-        let parks = await ParksService.getParks()
+        let parks = await ParksService.index()
         this.loading = false
         this.parks = parks.data
       } catch(err) {

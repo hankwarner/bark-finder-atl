@@ -1,7 +1,7 @@
 import Api from '@/services/Api'
 
 export default {
-    getParks() {
+    index() {
         return Api().get('parks')
     }
 }
