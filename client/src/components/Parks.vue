@@ -8,7 +8,7 @@
               <v-flex d-flex xs12 md5>
                 <v-img 
                   class="image" 
-                  :src="park.image"
+                  :src="park.imageUrl"
                   aspect-ratio="2"
                   alt="dog park"
                   @click="navigateTo({

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    image: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING(10000),
+      allowNull: false
+    }
   }, {});
   Park.associate = function(models) {
     Park.hasMany(models.Review, {
