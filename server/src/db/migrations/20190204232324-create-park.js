@@ -27,6 +27,14 @@ module.exports = {
       description: {
         type: Sequelize.STRING(10000)
       },
+      lat: {
+        type: Sequelize.DECIMAL(10,6),
+        allowNull: false
+      },
+      lng: {
+        type: Sequelize.DECIMAL(10,6),
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

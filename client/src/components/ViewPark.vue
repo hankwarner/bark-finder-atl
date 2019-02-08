@@ -75,6 +75,10 @@
           <v-flex d-flex xs12 md12>
             <review-park></review-park>
           </v-flex>
+
+          <v-flex>
+            <google-map></google-map>
+          </v-flex>
           
         </v-layout>
       </v-container>
@@ -83,12 +87,14 @@
 
 <script>
 import ReviewPark from '@/components/ReviewPark.vue'
+import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
 
 export default {
   components: {
-    'review-park': ReviewPark
+    'review-park': ReviewPark,
+    'google-map': GoogleMap
   },
 
   data() {
