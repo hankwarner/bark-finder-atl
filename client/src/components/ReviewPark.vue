@@ -1,16 +1,19 @@
 <template>
     <div>
       <form>
-        <v-text-field
-          type="rating"
-          name="rating"
-          v-model="review.rating" />
+        <v-select
+          :items="items"
+          label="Rating"
+          v-model="review.rating"
+        ></v-select>
         
-        <v-text-field
+        <v-textarea
+          solo
           type="body"
           name="body"
           v-model="review.body"
-          placeholder="Write a review here" />
+          placeholder="Write your review here">
+        </v-textarea>
 
           <div class="error" v-html="error" />
 
@@ -27,6 +30,7 @@ export default {
   data() {
     return {
       loading: false,
+      items: [1, 2, 3, 4, 5],
       review: {
         body: null,
         rating: null,
@@ -44,17 +48,9 @@ export default {
       
       try {
         await ReviewsService.create(parkId, this.review)
-        
-        this.$router.push({
-          name: 'park',
-          params: {
-            parkId: parkId
-          }
-        })
 
       } catch(err) {
-        //need to define error here
-        this.error = err
+        this.error = err.message.toString()
       }
     }
   }

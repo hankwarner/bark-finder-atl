@@ -68,9 +68,9 @@ export default {
         let parks = await ParksService.index()
         this.loading = false
         this.parks = parks.data
+        
       } catch(err) {
-        //need to define error here
-        this.error = err
+        this.error = err.message.toString()
       }
     },
 

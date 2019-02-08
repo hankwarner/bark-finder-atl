@@ -6,10 +6,6 @@
       <p>{{park.description}}</p>
 
       <h2>Reviews</h2>
-      <v-btn
-        @click="navigateTo({name: 'reviewPark'})">
-        Create Review
-      </v-btn>
       <p
         v-for="review in park.reviews"
         v-bind:key="review.id">
@@ -17,13 +13,23 @@
         {{review.rating}}
       </p>
 
+    <div>
+      <h2>Write a Review</h2>
+      <review-park></review-park>
+    </div>
+
     </div>
 </template>
 
 <script>
+import ReviewPark from '@/components/ReviewPark.vue'
 import ParksService from '@/services/ParksService.js'
 
 export default {
+  components: {
+    'review-park': ReviewPark
+  },
+
   data() {
     return {
       loading: false,
@@ -31,9 +37,15 @@ export default {
       error: null
     }
   },
+  
   mounted() {
     this.getPark()
   },
+
+  watch: {
+    park: "getPark"
+  },
+
   methods: {
     async getPark() {
       this.loading = true
@@ -42,14 +54,11 @@ export default {
         let park = await ParksService.show(parkId)
         this.loading = false
         this.park = park.data
+
       } catch(err) {
-        //need to define error here
-        this.error = err
+        this.error = err.message.toString()
       }
-    },
-    navigateTo(route) {
-      this.$router.push(route)
-    },
+    }
   }
 }
 </script>

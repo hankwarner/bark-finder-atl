@@ -46,8 +46,12 @@ export default {
         this.$store.dispatch('setToken', localStorage.token)
         this.$store.dispatch('setUser', localStorage.user)
         this.$store.dispatch('setUserId', localStorage.userId)
+
+        this.$router.push({
+          name: 'HelloWorld'
+        })
+        
       } catch(err) {
-        //need to define error here
         this.error = err.message.toString()
       }
       
