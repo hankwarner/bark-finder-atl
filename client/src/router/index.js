@@ -5,6 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Parks from '@/components/Parks'
 import ViewPark from '@/components/ViewPark'
+import ReviewPark from '@/components/ReviewPark'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/parks/:parkId',
       name: 'park',
       component: ViewPark
+    },
+    {
+      path: '/parks/:parkId/review',
+      name: 'reviewPark',
+      component: ReviewPark
     }
   ]
 })

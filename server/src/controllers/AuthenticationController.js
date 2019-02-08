@@ -27,7 +27,7 @@ module.exports = {
                                 auth: true,
                                 token: token,
                                 message: 'Registration successful',
-                                user: user.username
+                                user: user
                             })
                         })
                     })
@@ -57,7 +57,7 @@ module.exports = {
                             auth: true,
                             token: token,
                             message: 'Login successful',
-                            user: user.username
+                            user: user
                         })
                     })
                 })

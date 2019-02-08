@@ -57,6 +57,7 @@ export default {
         logout() {
             this.$store.dispatch('setToken', null)
             this.$store.dispatch('setUser', null)
+            this.$store.dispatch('setUserId', null)
             //Redirect to homepage
             this.$router.push({
                 name: 'HelloWorld'
