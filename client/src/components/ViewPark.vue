@@ -17,51 +17,65 @@
           </v-flex>
           
           <v-flex d-flex xs12 md12>
-            <h1>{{park.name}}</h1>
+            <h2 class="display-3">{{park.name}}</h2>
           </v-flex>
           
           <v-flex d-flex xs12 md12>
-            <p>{{park.neighborhood}}</p>
+            <h3 class="display-2">{{park.neighborhood}}</h3>
           </v-flex>
 
           <v-flex d-flex xs12 md12>
-            <p>{{park.address}}</p>
+            <h5 class="headline">{{park.address}}</h5>
           </v-flex>
 
           <v-flex d-flex xs12 md12>
-            <p>{{park.description}}</p>
+            <p class="subheading">{{park.description}}</p>
           </v-flex>
 
           <v-flex d-flex xs12 md12>
-            <h2>Reviews</h2>
+            <div class="text-md-left">
+              <h4 class="display-2">Reviews</h4>
+            </div>
           </v-flex>
 
-          <div
+          <v-flex d-flex xs12 md12
             v-for="(review) in park.reviews"
             v-bind:key="review.id">
+            
+            <v-layout row wrap align-start justify-space-between>
               
-            <v-flex d-flex xs12 md9 align-self-start>
-              {{review.body}}
-            </v-flex>
-            
-            <v-flex xs12 md1>
-              {{review.rating}}
-            </v-flex>
-            
-            <v-flex xs12 md1 align-self-end>
-              <v-btn
-                @click="deleteReview(`${review.id}`)">
-                Delete
-              </v-btn>
-            </v-flex>
-            
-          </div>
-
-          <v-flex d-flex xs12 md12>
-            <h2>Write a Review</h2>
-            <review-park></review-park>
+              <v-flex class="body-2" d-flex xs12 md12>
+                  {{review.rating}} Stars
+              </v-flex>
+              
+              <v-flex class="body-2" d-flex xs12 md9 align-start>
+                <div class="text-md-left">
+                  {{review.body}}
+                </div>
+              </v-flex>
+              
+              <v-flex d-flex xs1 md1>
+                <v-btn
+                  flat 
+                  large 
+                  color="error"
+                  @click="deleteReview(review)">
+                  Delete
+                </v-btn>
+              </v-flex>
+            </v-layout>
           </v-flex>
 
+          <v-flex d-flex xs12 md12>
+            <div class="text-md-left">
+              <h3>Write a Review</h3>
+            </div>
+          </v-flex>
+          
+          <v-flex d-flex xs12 md12>
+            <review-park></review-park>
+          </v-flex>
+          
         </v-layout>
       </v-container>
     </div>
@@ -111,10 +125,11 @@ export default {
     },
   
     async deleteReview(review) {
+      let reviewId = review.id
       //TODO: review not being passed in from on click event
       debugger
       try {
-        await ReviewsService.destroy(this.review.id)
+        await ReviewsService.destroy(reviewId)
 
       } catch(err) {
         this.error = err.message.toString()

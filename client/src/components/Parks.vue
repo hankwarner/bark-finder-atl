@@ -1,7 +1,8 @@
 <template>
-    <div>
-      <v-container fluid >
+    
+      <v-container fluid>
         <v-layout row wrap justify-space-around
+          class="parks"
           v-for="(park) in parks"
           v-bind:key="park.id">
             
@@ -23,22 +24,22 @@
               <v-layout row wrap>
 
                 <v-flex d-flex xs12 md6>
-                  <p>{{park.name}}</p>
+                  <h4 class="display-1">{{park.name}}</h4>
                 </v-flex>
 
                 <v-flex d-flex xs12 md6>
-                  <p>{{park.neighborhood}}</p>
+                  <h6 class="title">{{park.neighborhood}}</h6>
                 </v-flex>
 
                 <v-flex d-flex xs12 md12>
-                  <p>{{park.description}}</p>
+                  <p class="subheading">{{park.description}}</p>
                 </v-flex>
 
               </v-layout>
             </v-flex>
         </v-layout>
       </v-container>
-    </div>
+    
 </template>
 
 <script>
@@ -55,9 +56,6 @@ export default {
   mounted() {
     this.callParks()
   },
-//   watch() {
-//     '$route': 'callParks'
-//   }
 
   methods: {
     async callParks() {
@@ -82,6 +80,8 @@ export default {
 </script>
 
 <style scoped>
-
+.parks {
+  margin-bottom: 4%;
+}
 
 </style>

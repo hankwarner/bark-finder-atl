@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar fixed class="green">
+    <v-toolbar fixed class="light-blue darken-3">
         <v-toolbar-title>
             <span
                 class="home"

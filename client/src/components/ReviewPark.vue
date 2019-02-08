@@ -1,24 +1,25 @@
 <template>
     <div>
       <form>
-        <v-select
-          :items="items"
-          label="Rating"
-          v-model="review.rating"
-        ></v-select>
-        
-        <v-textarea
-          solo
-          type="body"
-          name="body"
-          v-model="review.body"
-          placeholder="Write your review here">
-        </v-textarea>
-
-          <div class="error" v-html="error" />
-
-        <v-btn
-          @click="createReview">Submit</v-btn>
+        <v-layout align-start row fill-height>
+          <v-rating v-model="review.rating"></v-rating>
+        </v-layout>
+        <v-flex xs12 md4>
+          <v-textarea
+            solo
+            type="body"
+            name="body"
+            v-model="review.body"
+            placeholder="Write your review here">
+          </v-textarea>
+        </v-flex>
+        <div class="error" v-html="error" />
+        <v-layout align-start row fill-height>
+          <v-btn
+            @click="createReview">
+            Submit
+          </v-btn>
+        </v-layout>
       </form>
     </div>
 </template>
@@ -30,7 +31,6 @@ export default {
   data() {
     return {
       loading: false,
-      items: [1, 2, 3, 4, 5],
       review: {
         body: null,
         rating: null,
@@ -48,6 +48,8 @@ export default {
       
       try {
         await ReviewsService.create(parkId, this.review)
+        this.review.body = null
+        this.review.rating = null
 
       } catch(err) {
         this.error = err.message.toString()
@@ -58,5 +60,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>
