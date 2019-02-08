@@ -1,17 +1,33 @@
 <template>
     <div>
+      <v-img 
+        :src="park.imageUrl"
+        aspect-ratio="4"
+        alt="dog park"
+        @click="navigateTo({
+          name: 'park',
+          params: {
+            parkId: park.id
+          }
+        })">
+      </v-img>
       <h1>{{park.name}}</h1>
       <p>{{park.address}}</p>
       <p>{{park.neighborhood}}</p>
       <p>{{park.description}}</p>
 
       <h2>Reviews</h2>
-      <p
-        v-for="review in park.reviews"
+
+      <v-flex
+        v-for="(review) in park.reviews"
         v-bind:key="review.id">
         {{review.body}}
         {{review.rating}}
-      </p>
+        <v-btn
+          @click="deleteReview()">
+          Delete
+        </v-btn>
+      </v-flex>
 
     <div>
       <h2>Write a Review</h2>
@@ -24,6 +40,7 @@
 <script>
 import ReviewPark from '@/components/ReviewPark.vue'
 import ParksService from '@/services/ParksService.js'
+import ReviewsService from '@/services/ReviewsService.js'
 
 export default {
   components: {
@@ -34,6 +51,9 @@ export default {
     return {
       loading: false,
       park: [],
+      review: {
+        id: null
+      },
       error: null
     }
   },
@@ -58,8 +78,22 @@ export default {
       } catch(err) {
         this.error = err.message.toString()
       }
+    },
+  
+    async deleteReview(index) {
+      //TODO: review not being passed in from on click event
+      debugger
+      try {
+        await ReviewsService.destroy(this.review.id)
+
+      } catch(err) {
+        this.error = err.message.toString()
+      }
     }
+
   }
+
+    
 }
 </script>
 

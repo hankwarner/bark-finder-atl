@@ -8,4 +8,5 @@ module.exports = (app) => {
     app.get('/parks', ParkController.index),
     app.get('/parks/:id', ParkController.show),
     app.post('/parks/:id/review/create', ReviewController.create)
+    app.post('/parks/:id/review/destroy', ReviewController.destroy)
 }

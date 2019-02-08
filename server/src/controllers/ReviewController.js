@@ -18,9 +18,20 @@ module.exports = {
                 //send error back to client
                 res.status(400).send(err.message)
             } else {
-                //send review back to client
+                //send review object back to client
                 res.send(review)
             }
+        })
+    },
+
+    destroy(req, res, next){
+        reviewQueries.deleteReview(req, (err) => {
+          if(err){
+            console.log(err)
+            res.status(400).send(err.message)
+          } else {
+            res.status(200)
+          }
         })
     }
   }

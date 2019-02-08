@@ -12,7 +12,7 @@ module.exports = {
       updatedAt: new Date()
     }, {
       name: "Piedmont Dog Park",
-      imageUrl: '../../static/images/piedmont.jpg',
+      imageUrl: '../../static/images/piedmont2.jpg',
       address: '400 Park Dr NE, Atlanta, GA 30306',
       neighborhood: 'Midtown',
       description: 'Piedmont Park is a haven for dogs and humans alike! While a City of Atlanta ordinance requires all dogs in public areas to be leashed, Piedmont Dog Park is one of the few locations in metro Atlanta where dogs may run free, off the leash. Since 2002, this special off-leash area is one of the most popular features of Piedmont Park.',
