@@ -4,7 +4,7 @@ const expressValidator = require("express-validator")
 
 
 module.exports = {
-    port: 8081,
+    port: process.env.PORT || 8081,
 
     init(app) {
 
