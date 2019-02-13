@@ -21,6 +21,12 @@
         v-model="password"
         placeholder="Password" />
 
+        <v-text-field
+        type="password"
+        name="passwordConfirmation"
+        v-model="passwordConfirmation"
+        placeholder="Confirm Password" />
+
         <div class="error" v-html="error" />
 
       <v-btn
@@ -39,6 +45,7 @@ export default {
       email: '',
       username: '',
       password: '',
+      passwordConfirmation: '',
       error: null
     }
   },
@@ -48,7 +55,8 @@ export default {
         const response = await AuthenticationService.register({
           email: this.email,
           username: this.username,
-          password: this.password
+          password: this.password,
+          passwordConfirmation: this.passwordConfirmation,
         })
         
         this.$store.dispatch('setToken', localStorage.token)
