@@ -10,7 +10,12 @@ module.exports = {
             email: req.body.email,
             username: req.body.username,
             password: req.body.password,
+            passwordConfirmation: req.body.passwordConfirmation,
         }
+
+        //check if passwords match
+        if (password != passwordConfirmation) return res.status(400).send(err.message)
+
         authenticationQueries.createUser(newUser, (err, user) => {
             if(err) {
                 res.status(400).send(err.message)
