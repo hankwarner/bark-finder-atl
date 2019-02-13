@@ -9,12 +9,8 @@ module.exports = {
         let newUser = {
             email: req.body.email,
             username: req.body.username,
-            password: req.body.password,
-            passwordConfirmation: req.body.passwordConfirmation,
+            password: req.body.password
         }
-
-        //check if passwords match
-        if (password != passwordConfirmation) return res.status(400).send(err.message)
 
         authenticationQueries.createUser(newUser, (err, user) => {
             if(err) {
@@ -26,7 +22,8 @@ module.exports = {
                             where: {
                                 username: user.username
                             },
-                        }).then(user => {
+                        })
+                        .then(user => {
                             const token = jwt.sign({ id: user.username }, jwtSecret.secret)
                             res.status(200).send({
                                 auth: true,
@@ -34,6 +31,10 @@ module.exports = {
                                 message: 'Registration successful',
                                 user: user
                             })
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            res.status(400).send(err.message)
                         })
                     })
                 })

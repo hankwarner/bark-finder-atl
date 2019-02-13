@@ -67,7 +67,6 @@ export default {
           name: 'HelloWorld'
         })
       } catch(err) {
-        
         this.error = err.message.toString()
       }
       

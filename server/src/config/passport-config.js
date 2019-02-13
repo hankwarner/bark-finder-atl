@@ -19,20 +19,23 @@ module.exports = {
           session: false
         },
         (username, password, done) => {
-          try {
-            User.findOne({
-              where: {
-                username: username
-              },
-            }).then(user => {
-              if (!user || !authHelper.comparePass(password, user.password)) {
-                return done(null, false, { message: "Invalid username or password" });
-              }
+          User.findOne({
+            where: {
+              username: username
+            },
+          })
+          .then((user) => {
+            if (!user || !authHelper.comparePass(password, user.password)) {
+              return done(null, false, { message: "Bad username or password" });
+            } else {
               return done(null, user);
-            })
-          } catch(err) {
-            done(err)
-          }
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            done()
+          })
+
         }
       )
     )
@@ -46,31 +49,25 @@ module.exports = {
           session: false,
         },
         (username, password, done) => {
-          try {
-            User.findOne({
-              where: {
-                username: username,
-              },
-            }).then(user => {
-              if (user === null) {
-                return done(null, false, { message: 'bad username' })
-              } else {
-                bcrypt.compare(password, user.password).then(response => {
-                  if (response !== true) {
-                    console.log('passwords do not match')
-                    return done(null, false, { message: 'passwords do not match' })
-                  }
-                  console.log('user found & authenticated')
-                  return done(null, user);
-                })
-              }
-            })
-          } catch (err) {
-            done(err)
-          }
-        },
+          User.findOne({
+            where: {
+              username: username,
+            },
+          })
+          .then(user => {
+            if(!authHelper.comparePass(password, user.password)){
+              return done(null, false, { message: "Invalid username and password combination" });
+            } else {
+              return done(null, user)
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            done()
+          })
+        } 
       ),
-    );
+    )
 
     const opts = {
       jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
