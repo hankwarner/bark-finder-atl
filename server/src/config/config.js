@@ -1,6 +1,6 @@
-require("dotenv").config();
-//const session = require("express-session");
-const passportConfig = require("./passport-config");
+require("dotenv").config()
+const passportConfig = require("./passport-config")
+const expressValidator = require("express-validator")
 
 
 module.exports = {
@@ -8,17 +8,10 @@ module.exports = {
 
     init(app) {
 
-
-
-        // app.use(session({
-        //     secret: process.env.cookieSecret,
-        //     resave: false,
-        //     saveUninitialized: false,
-        //     cookie: { maxAge: 1.21e+9 }
-        // }))
-
         passportConfig.init(app)
 
+        app.use(expressValidator())
+        
         app.use((req,res,next) => {
             res.locals.currentUser = req.user;
             next()
