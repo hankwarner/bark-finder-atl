@@ -28,8 +28,12 @@
             <h5 class="headline">{{park.address}}</h5>
           </v-flex>
 
-          <v-flex d-flex xs12 md12>
+          <v-flex d-flex xs12 md6>
             <p class="subheading">{{park.description}}</p>
+          </v-flex>
+
+          <v-flex d-flex xs12 md4>
+            <google-map></google-map>
           </v-flex>
 
           <v-flex d-flex xs12 md12>
@@ -74,10 +78,6 @@
           
           <v-flex d-flex xs12 md12>
             <review-park></review-park>
-          </v-flex>
-
-          <v-flex>
-            <google-map></google-map>
           </v-flex>
           
         </v-layout>
