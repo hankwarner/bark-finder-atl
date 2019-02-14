@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "SET NODE_ENV=production && node server/src/app.js --exec  \"node\"",
+    "start": "set NODE_ENV=production && node server/src/app.js --exec  \"node\"",
     "test": "set NODE_ENV=test&& jasmine",
     "lint": "eslint src/**/*.js"
   },
