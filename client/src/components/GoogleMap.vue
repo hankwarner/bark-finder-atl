@@ -2,17 +2,17 @@
   <div>
     <GmapMap
         :center="{lat: this.center.lat, lng: this.center.lng}"
-        :zoom="18"
+        :zoom="14"
         map-type-id="terrain"
         style="width: 500px; height: 300px">
 
-    <!-- <GmapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"/> -->
+    <GmapMarker
+      :key="index"
+      v-for="(m, index) in markers"
+      :position="m.position"
+      :clickable="true"
+      :draggable="true"
+      @click="center=m.position"/>
     </GmapMap>
   </div>
 </template>
@@ -38,18 +38,6 @@ export default {
   },
 
   methods: {
-    // addMarker() {
-    //   if (this.currentPlace) {
-    //     const marker = {
-    //       lat: this.currentPlace.geometry.location.lat(),
-    //       lng: this.currentPlace.geometry.location.lng()
-    //     };
-    //     this.markers.push({ position: marker });
-    //     this.places.push(this.currentPlace);
-    //     this.center = marker;
-    //     this.currentPlace = null;
-    //   }
-    // },
     async setPlace() {
       let parkId = this.$store.state.route.params.parkId
 
@@ -59,10 +47,15 @@ export default {
         let lng = parseFloat(park.data.lng)
 
         this.center = {
-            lat: lat,
-            lng: lng
+          lat: lat,
+          lng: lng
         }
-        
+
+        let marker = {
+          lat: lat,
+          lng: lng
+        }
+        this.markers.push({ position: marker})
 
       } catch(err) {
         this.error = err.message.toString()
