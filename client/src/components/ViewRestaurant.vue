@@ -4,32 +4,32 @@
         <v-layout row wrap justify-space-around>
           <v-flex d-flex xs12 md12>
             <v-img 
-              :src="park.imageUrl"
+              :src="restaurant.imageUrl"
               aspect-ratio="4"
-              alt="dog park"
+              alt="restaurant"
               @click="navigateTo({
-                name: 'park',
+                name: 'restaurant',
                 params: {
-                  parkId: park.id
+                  restaurantId: restaurant.id
                 }
               })">
             </v-img>
           </v-flex>
           
           <v-flex d-flex xs12 md12>
-            <h2 class="display-3">{{park.name}}</h2>
+            <h2 class="display-3">{{restaurant.name}}</h2>
           </v-flex>
           
           <v-flex d-flex xs12 md12>
-            <h3 class="display-2">{{park.neighborhood}}</h3>
+            <h3 class="display-2">{{restaurant.neighborhood}}</h3>
           </v-flex>
 
           <v-flex d-flex xs12 md12>
-            <h5 class="headline">{{park.address}}</h5>
+            <h5 class="headline">{{restaurant.address}}</h5>
           </v-flex>
 
           <v-flex class="description-map-block" d-flex xs12 md6>
-            <p class="subheading">{{park.description}}</p>
+            <p class="subheading">{{restaurant.description}}</p>
           </v-flex>
 
           <v-flex class="description-map-block" d-flex xs12 md4>
@@ -42,8 +42,8 @@
             </div>
           </v-flex>
 
-          <v-flex d-flex xs12 md12
-            v-for="(review) in park.reviews"
+          <!-- <v-flex d-flex xs12 md12
+            v-for="(review) in restaurant.reviews"
             v-bind:key="review.id">
             
             <v-layout row wrap align-start justify-space-between>
@@ -68,17 +68,17 @@
                 </v-btn>
               </v-flex>
             </v-layout>
-          </v-flex>
+          </v-flex> -->
 
-          <v-flex d-flex xs12 md12>
+          <!-- <v-flex d-flex xs12 md12>
             <div class="text-md-left">
               <h3>Write a Review</h3>
             </div>
           </v-flex>
           
           <v-flex d-flex xs12 md12>
-            <review-park></review-park>
-          </v-flex>
+            <review-restaurant></review-restaurant>
+          </v-flex> -->
           
         </v-layout>
       </v-container>
@@ -86,60 +86,61 @@
 </template>
 
 <script>
-import ReviewPark from '@/components/ReviewPark.vue'
+// import ReviewPark from '@/components/ReviewPark.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
-import ParksService from '@/services/ParksService.js'
-import ReviewsService from '@/services/ReviewsService.js'
+import RestaurantsService from '@/services/RestaurantsService.js'
+// import ReviewsService from '@/services/ReviewsService.js'
 
 export default {
   components: {
-    'review-park': ReviewPark,
+    // 'review-park': ReviewPark,
     'google-map': GoogleMap
   },
 
   data() {
     return {
       loading: false,
-      park: [],
-      review: {
-        id: null
-      },
+      restaurant: [],
+    //   review: {
+    //     id: null
+    //   },
       error: null
     }
   },
   
   mounted() {
-    this.getPark()
+    this.getRestaurant()
   },
 
   watch: {
-    park: "getPark"
+    restaurant: "getRestaurant"
   },
 
   methods: {
-    async getPark() {
+    async getRestaurant() {
       this.loading = true
-      let parkId = this.$store.state.route.params.parkId
+      let restaurantId = this.$store.state.route.params.restaurantId
+      
       try {
-        let park = await ParksService.show(parkId)
+        let restaurant = await RestaurantsService.show(restaurantId)
         this.loading = false
-        this.park = park.data
+        this.restaurant = restaurant.data
 
       } catch(err) {
         this.error = err.message.toString()
       }
     },
   
-    async deleteReview(review) {
-      let reviewId = review.id
-      //TODO: review not being passed in from on click event
-      try {
-        await ReviewsService.destroy(reviewId)
+    // async deleteReview(review) {
+    //   let reviewId = review.id
+    //   //TODO: review not being passed in from on click event
+    //   try {
+    //     await ReviewsService.destroy(reviewId)
 
-      } catch(err) {
-        this.error = err.message.toString()
-      }
-    }
+    //   } catch(err) {
+    //     this.error = err.message.toString()
+    //   }
+    // }
 
   }
 
@@ -148,4 +149,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
