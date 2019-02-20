@@ -1,5 +1,6 @@
 const Park = require('../models').Park
 const Review = require('../models').Review
+const User = require('../models').User
 
 module.exports = {
   async getAllParks(callback) {
@@ -18,7 +19,8 @@ module.exports = {
       let park = await Park.findById(id, {
         include: [{
           model: Review,
-          as: "reviews"
+          as: "reviews",
+          include: [{model: User}]
         }]
       })
       return callback(null, park)

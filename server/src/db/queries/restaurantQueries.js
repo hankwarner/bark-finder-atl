@@ -1,5 +1,6 @@
 const Restaurant = require('../models').Restaurant
 const Review = require('../models').Review
+const User = require('../models').User
 
 module.exports = {
 
@@ -19,7 +20,8 @@ module.exports = {
             let restaurant = await Restaurant.findById(id, {
                 include: [{
                     model: Review,
-                    as: "reviews"
+                    as: "reviews",
+                    include: [{model: User}]
                 }]
             })
             return callback(null, restaurant)

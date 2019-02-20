@@ -49,7 +49,11 @@
           <v-layout row wrap align-start justify-space-between>
             
             <v-flex class="body-2" d-flex xs12 md12>
-                {{review.rating}} Stars
+              {{review.rating}} Stars
+            </v-flex>
+
+            <v-flex class="body-2" d-flex xs12 md12>
+              {{review.User.username}}
             </v-flex>
             
             <v-flex class="body-2" d-flex xs12 md9 align-start>
@@ -77,7 +81,7 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <review-park></review-park>
+          <review></review>
         </v-flex>
         
       </v-layout>
@@ -86,14 +90,14 @@
 </template>
 
 <script>
-import ReviewPark from '@/components/ReviewPark.vue'
+import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import RestaurantsService from '@/services/RestaurantsService.js'
 import ReviewsService from '@/services/ReviewsService.js'
 
 export default {
   components: {
-    'review-park': ReviewPark,
+    'review': Review,
     'google-map': GoogleMap
   },
 
