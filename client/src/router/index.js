@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Parks from '@/components/Parks'
 import ViewPark from '@/components/ViewPark'
 import ReviewPark from '@/components/ReviewPark'
+import Restaurants from '@/components/Restaurants'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/parks/:parkId/review',
       name: 'reviewPark',
       component: ReviewPark
+    },
+    {
+      path: '/restaurants',
+      name: 'restaurants',
+      component: Restaurants
     }
   ]
 })

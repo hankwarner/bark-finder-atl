@@ -19,7 +19,6 @@ module.exports = {
       parkId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
-        allowNull: false,
         references: {
           model: "Parks",
           key: "id",

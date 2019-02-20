@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     parkId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     },
     body: {
       type: DataTypes.STRING,
@@ -28,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "parkId",
       onDelete: "CASCADE"
     })
+
   };
   return Review;
 };

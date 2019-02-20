@@ -13,7 +13,10 @@
                 @click="navigateTo({name: 'parks'})">
                 Parks
             </v-btn>
-            <v-btn flat>Restaurants</v-btn>
+            <v-btn flat
+                @click="navigateTo({name: 'restaurants'})">
+                Restaurants
+            </v-btn>
             <v-btn flat>Events</v-btn>
             
         </v-toolbar-items>

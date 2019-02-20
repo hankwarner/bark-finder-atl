@@ -23,6 +23,9 @@ describe('Parks', () => {
                     address: '19th Street',
                     neighborhood: 'Mission',
                     description: "Leave no trace",
+                    imageUrl: '../../static/images/mission.jpg',
+                    lat: 33.759815,
+                    lng: -84.364534,
                     reviews: [{
                         userId: this.user.id,
                         body: "Great spot",
@@ -39,6 +42,10 @@ describe('Parks', () => {
                     done();
                 })
             })
+            .catch((err) => {
+                console.log(err);
+                done();
+            })
         })
       })
 
@@ -49,6 +56,9 @@ describe('Parks', () => {
             expect(this.park.address).toContain("19th Street");
             expect(this.park.neighborhood).toContain("Mission");
             expect(this.park.description).toContain("Leave no trace");
+            expect(this.park.imageUrl).toContain("../../static/images/mission.jpg");
+            expect(this.park.lat).toBe('33.759815');
+            expect(this.park.lng).toBe('-84.364534');
             done();
         })  
     })

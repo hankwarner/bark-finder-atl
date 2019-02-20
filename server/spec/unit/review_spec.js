@@ -15,7 +15,10 @@ describe('Reviews', () => {
               name: "Mission Dolores Park",
               address: '19th Street',
               neighborhood: 'Mission',
-              description: "Leave no trace"
+              description: "Leave no trace",
+              imageUrl: '../../static/images/mission.jpg',
+              lat: 33.759815,
+              lng: -84.364534,
             })
             .then((park) => {
               this.park = park;
@@ -78,9 +81,8 @@ describe('Reviews', () => {
                 done();
             })
             .catch((err) => {
-                expect(err.message).toContain('Review.parkId cannot be null');
-                expect(err.message).toContain('Review.userId cannot be null');
                 expect(err.message).toContain('Review.rating cannot be null');
+                expect(err.message).toContain('Review.userId cannot be null');
                 done();
             })
         })
@@ -92,7 +94,10 @@ describe('Reviews', () => {
                 name: "Golden Gate Park",
                 address: 'Haight Street',
                 neighborhood: 'Haight-Ashbury',
-                description: "Your wildest dreams"
+                description: "Your wildest dreams",
+                imageUrl: '../../static/images/ggp.jpg',
+                lat: 33.734815,
+                lng: -84.364343,
             })
           .then((newPark) => {
             expect(this.review.parkId).toBe(this.park.id);
