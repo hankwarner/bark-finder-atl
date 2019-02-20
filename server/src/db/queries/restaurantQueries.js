@@ -1,4 +1,5 @@
 const Restaurant = require('../models').Restaurant
+const Review = require('../models').Review
 
 module.exports = {
 
@@ -15,7 +16,12 @@ module.exports = {
 
     async getRestaurant(id, callback){
         try {
-            let restaurant = await Restaurant.findById(id)
+            let restaurant = await Restaurant.findById(id, {
+                include: [{
+                    model: Review,
+                    as: "reviews"
+                }]
+            })
             return callback(null, restaurant)
         
         } catch(error) {

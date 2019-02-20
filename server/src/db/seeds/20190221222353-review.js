@@ -23,7 +23,21 @@ module.exports = {
       rating: 5,
       createdAt: new Date(),
       updatedAt: new Date()
-    }], {});
+    }, {
+        userId: 1,
+        restaurantId: 1,
+        body: "Great patio and a fun place to watch sports. Come during tiki season for the full effect.",
+        rating: 5,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }, {
+        userId: 2,
+        restaurantId: 2,
+        body: "A great place but can get really crowded, especially on weekends.",
+        rating: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }], {});
   },
 
   down: (queryInterface, Sequelize) => {

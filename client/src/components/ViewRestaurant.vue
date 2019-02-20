@@ -1,99 +1,99 @@
 <template>
-    <div>
-      <v-container fluid >
-        <v-layout row wrap justify-space-around>
-          <v-flex d-flex xs12 md12>
-            <v-img 
-              :src="restaurant.imageUrl"
-              aspect-ratio="4"
-              alt="restaurant"
-              @click="navigateTo({
-                name: 'restaurant',
-                params: {
-                  restaurantId: restaurant.id
-                }
-              })">
-            </v-img>
-          </v-flex>
+  <div>
+    <v-container fluid >
+      <v-layout row wrap justify-space-around>
+        <v-flex d-flex xs12 md12>
+          <v-img 
+            :src="restaurant.imageUrl"
+            aspect-ratio="4"
+            alt="restaurant"
+            @click="navigateTo({
+              name: 'restaurant',
+              params: {
+                restaurantId: restaurant.id
+              }
+            })">
+          </v-img>
+        </v-flex>
+        
+        <v-flex d-flex xs12 md12>
+          <h2 class="display-3">{{restaurant.name}}</h2>
+        </v-flex>
+        
+        <v-flex d-flex xs12 md12>
+          <h3 class="display-2">{{restaurant.neighborhood}}</h3>
+        </v-flex>
+
+        <v-flex d-flex xs12 md12>
+          <h5 class="headline">{{restaurant.address}}</h5>
+        </v-flex>
+
+        <v-flex class="description-map-block" d-flex xs12 md6>
+          <p class="subheading">{{restaurant.description}}</p>
+        </v-flex>
+
+        <v-flex class="description-map-block" d-flex xs12 md4>
+          <google-map></google-map>
+        </v-flex>
+
+        <v-flex d-flex xs12 md12>
+          <div class="text-md-left">
+            <h4 class="display-2">Reviews</h4>
+          </div>
+        </v-flex>
+
+        <v-flex d-flex xs12 md12
+          v-for="(review) in restaurant.reviews"
+          v-bind:key="review.id">
           
-          <v-flex d-flex xs12 md12>
-            <h2 class="display-3">{{restaurant.name}}</h2>
-          </v-flex>
-          
-          <v-flex d-flex xs12 md12>
-            <h3 class="display-2">{{restaurant.neighborhood}}</h3>
-          </v-flex>
-
-          <v-flex d-flex xs12 md12>
-            <h5 class="headline">{{restaurant.address}}</h5>
-          </v-flex>
-
-          <v-flex class="description-map-block" d-flex xs12 md6>
-            <p class="subheading">{{restaurant.description}}</p>
-          </v-flex>
-
-          <v-flex class="description-map-block" d-flex xs12 md4>
-            <google-map></google-map>
-          </v-flex>
-
-          <v-flex d-flex xs12 md12>
-            <div class="text-md-left">
-              <h4 class="display-2">Reviews</h4>
-            </div>
-          </v-flex>
-
-          <!-- <v-flex d-flex xs12 md12
-            v-for="(review) in restaurant.reviews"
-            v-bind:key="review.id">
+          <v-layout row wrap align-start justify-space-between>
             
-            <v-layout row wrap align-start justify-space-between>
-              
-              <v-flex class="body-2" d-flex xs12 md12>
-                  {{review.rating}} Stars
-              </v-flex>
-              
-              <v-flex class="body-2" d-flex xs12 md9 align-start>
-                <div class="text-md-left">
-                  {{review.body}}
-                </div>
-              </v-flex>
-              
-              <v-flex d-flex xs1 md1>
-                <v-btn
-                  flat 
-                  large 
-                  color="error"
-                  @click="deleteReview(review)">
-                  Delete
-                </v-btn>
-              </v-flex>
-            </v-layout>
-          </v-flex> -->
+            <v-flex class="body-2" d-flex xs12 md12>
+                {{review.rating}} Stars
+            </v-flex>
+            
+            <v-flex class="body-2" d-flex xs12 md9 align-start>
+              <div class="text-md-left">
+                {{review.body}}
+              </div>
+            </v-flex>
+            
+            <v-flex d-flex xs1 md1>
+              <v-btn
+                flat 
+                large 
+                color="error"
+                @click="deleteReview(review)">
+                Delete
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-flex>
 
-          <!-- <v-flex d-flex xs12 md12>
-            <div class="text-md-left">
-              <h3>Write a Review</h3>
-            </div>
-          </v-flex>
-          
-          <v-flex d-flex xs12 md12>
-            <review-restaurant></review-restaurant>
-          </v-flex> -->
-          
-        </v-layout>
-      </v-container>
-    </div>
+        <v-flex d-flex xs12 md12>
+          <div class="text-md-left">
+            <h3>Write a Review</h3>
+          </div>
+        </v-flex>
+        
+        <v-flex d-flex xs12 md12>
+          <review-park></review-park>
+        </v-flex>
+        
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
-// import ReviewPark from '@/components/ReviewPark.vue'
+import ReviewPark from '@/components/ReviewPark.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import RestaurantsService from '@/services/RestaurantsService.js'
-// import ReviewsService from '@/services/ReviewsService.js'
+import ReviewsService from '@/services/ReviewsService.js'
 
 export default {
   components: {
-    // 'review-park': ReviewPark,
+    'review-park': ReviewPark,
     'google-map': GoogleMap
   },
 
@@ -101,9 +101,9 @@ export default {
     return {
       loading: false,
       restaurant: [],
-    //   review: {
-    //     id: null
-    //   },
+      review: {
+        id: null
+      },
       error: null
     }
   },

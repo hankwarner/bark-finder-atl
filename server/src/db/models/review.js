@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     parkId: {
       type: DataTypes.INTEGER
     },
+    restaurantId: {
+      type: DataTypes.INTEGER
+    },
     body: {
       type: DataTypes.STRING,
       allowNull: false
@@ -25,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
 
     Review.belongsTo(models.Park, {
       foreignKey: "parkId",
+      onDelete: "CASCADE"
+    })
+
+    Review.belongsTo(models.Restaurant, {
+      foreignKey: "restaurantId",
       onDelete: "CASCADE"
     })
 

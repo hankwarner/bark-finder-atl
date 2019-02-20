@@ -18,5 +18,7 @@ module.exports = (app) => {
 
     //Restaurant routes
     app.get('/restaurants', RestaurantController.index),
-    app.get('/restaurants/:id', RestaurantController.show)
+    app.get('/restaurants/:id', RestaurantController.show),
+    app.post('/restaurants/:id/review/create', helper.ensureAuthenticated, ReviewController.create)
+    app.post('/restaurants/:id/review/destroy', ReviewController.destroy)
 }

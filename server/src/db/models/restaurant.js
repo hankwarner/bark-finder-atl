@@ -31,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Restaurant.associate = function(models) {
-    // Restaurant.hasMany(models.Review, {
-    //   foreignKey: "restaurantId",
-    //   as: "reviews"
-    // })
+    Restaurant.hasMany(models.Review, {
+      foreignKey: "restaurantId",
+      as: "reviews"
+    })
   };
   return Restaurant;
 };

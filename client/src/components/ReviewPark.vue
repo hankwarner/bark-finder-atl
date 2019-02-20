@@ -35,6 +35,7 @@ export default {
         body: null,
         rating: null,
         parkId: this.$store.state.route.params.parkId,
+        restaurantId: this.$store.state.route.params.restaurantId,
         userId: this.$store.state.userId,
         token: this.$store.state.token
       },
@@ -45,12 +46,20 @@ export default {
   methods: {
     async createReview() {
       let parkId = this.$store.state.route.params.parkId
+      let restaurantId = this.$store.state.route.params.restaurantId
       
       try {
-        await ReviewsService.create(parkId, this.review)
-        this.review.body = null
-        this.review.rating = null
+        if(parkId) {
+          await ReviewsService.create(parkId, null, this.review)
+          this.review.body = null
+          this.review.rating = null
 
+        } else if (restaurantId) {
+          await ReviewsService.create(null, restaurantId, this.review)
+          this.review.body = null
+          this.review.rating = null
+        }
+        
       } catch(err) {
         this.error = err.message.toString()
       }
