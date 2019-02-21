@@ -28,11 +28,11 @@
             <h5 class="headline">{{park.address}}</h5>
           </v-flex>
 
-          <v-flex class="description-map-block" d-flex xs12 md6>
+          <v-flex d-flex xs12 md6>
             <p class="subheading">{{park.description}}</p>
           </v-flex>
 
-          <v-flex class="description-map-block" d-flex xs12 md4>
+          <v-flex d-flex xs12 md4>
             <google-map></google-map>
           </v-flex>
 
@@ -137,6 +137,7 @@ export default {
     async deleteReview(review) {
       let reviewId = review.id
       //TODO: review not being passed in from on click event
+      debugger
       try {
         await ReviewsService.destroy(reviewId)
 

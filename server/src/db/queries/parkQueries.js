@@ -16,7 +16,7 @@ module.exports = {
 
   async getPark(id, callback){
     try {
-      let park = await Park.findById(id, {
+      let park = Park.findById(id, {
         include: [{
           model: Review,
           as: "reviews",

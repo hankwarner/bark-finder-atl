@@ -7,7 +7,6 @@ import Parks from '@/components/Parks'
 import ViewPark from '@/components/ViewPark'
 import Review from '@/components/Review'
 import Restaurants from '@/components/Restaurants'
-import ViewRestaurant from '@/components/ViewRestaurant'
 
 Vue.use(Router)
 
@@ -47,11 +46,6 @@ export default new Router({
       path: '/restaurants',
       name: 'restaurants',
       component: Restaurants
-    },
-    {
-      path: '/restaurants/:restaurantId',
-      name: 'restaurant',
-      component: ViewRestaurant
     }
   ]
 })

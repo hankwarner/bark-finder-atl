@@ -3,7 +3,7 @@
     <GmapMap
         :center="{lat: this.center.lat, lng: this.center.lng}"
         :zoom="14"
-        map-type-id="hybrid"
+        map-type-id="terrain"
         style="width: 500px; height: 300px">
 
     <GmapMarker
@@ -19,8 +19,6 @@
 
 <script>
 import ParksService from '@/services/ParksService.js'
-import RestaurantsService from '@/services/RestaurantsService.js'
-import { debug } from 'util';
 
 export default {
   name: "GoogleMap",
@@ -42,18 +40,11 @@ export default {
   methods: {
     async setPlace() {
       let parkId = this.$store.state.route.params.parkId
-      let restaurantId = this.$store.state.route.params.restaurantId
-      let item;
-      
+
       try {
-        if(parkId) {
-          item = await ParksService.show(parkId)
-        } else if (restaurantId) {
-          item = await RestaurantsService.show(restaurantId)
-        }
-        
-        let lat = parseFloat(item.data.lat)
-        let lng = parseFloat(item.data.lng)
+        let park = await ParksService.show(parkId)
+        let lat = parseFloat(park.data.lat)
+        let lng = parseFloat(park.data.lng)
 
         this.center = {
           lat: lat,
@@ -64,14 +55,20 @@ export default {
           lat: lat,
           lng: lng
         }
-
         this.markers.push({ position: marker})
 
-      } catch (err) {
+      } catch(err) {
         this.error = err.message.toString()
-        
       }
-    }
+    },
+    // geolocate: function() {
+    //   navigator.geolocation.getCurrentPosition(position => {
+    //     this.center = {
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude
+    //     };
+    //   });
+    // }
   }
 };
 </script>
