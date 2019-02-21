@@ -48,15 +48,18 @@
           
           <v-layout row wrap align-start justify-space-between>
             
-            <v-flex class="body-2" d-flex xs12 md12>
-              {{review.rating}} Stars
+            <v-flex class="body-2" d-flex xs5 md2>
+              <v-rating
+                small
+                v-model="review.rating">
+              </v-rating>
             </v-flex>
 
-            <v-flex class="body-2" d-flex xs12 md12>
+            <v-flex class="body-2" mt-1 d-flex xs12 md12>
               {{review.User.username}}
             </v-flex>
             
-            <v-flex class="body-2" d-flex xs12 md9 align-start>
+            <v-flex class="body-2" mt-3 mb-5 d-flex xs12 md9 align-start>
               <div class="text-md-left">
                 {{review.body}}
               </div>
@@ -67,7 +70,8 @@
                 flat 
                 large 
                 color="error"
-                @click="deleteReview(review)">
+                @click="deleteReview(review)"
+                v-if="$store.state.user === review.User.username">
                 Delete
               </v-btn>
             </v-flex>
@@ -94,13 +98,11 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import RestaurantsService from '@/services/RestaurantsService.js'
 import ReviewsService from '@/services/ReviewsService.js'
-
 export default {
   components: {
     'review': Review,
     'google-map': GoogleMap
   },
-
   data() {
     return {
       loading: false,
@@ -115,11 +117,9 @@ export default {
   mounted() {
     this.getRestaurant()
   },
-
   watch: {
     restaurant: "getRestaurant"
   },
-
   methods: {
     async getRestaurant() {
       this.loading = true
@@ -129,7 +129,6 @@ export default {
         let restaurant = await RestaurantsService.show(restaurantId)
         this.loading = false
         this.restaurant = restaurant.data
-
       } catch(err) {
         this.error = err.message.toString()
       }
@@ -140,18 +139,14 @@ export default {
     //   //TODO: review not being passed in from on click event
     //   try {
     //     await ReviewsService.destroy(reviewId)
-
     //   } catch(err) {
     //     this.error = err.message.toString()
     //   }
     // }
-
   }
-
     
 }
 </script>
 
 <style scoped>
-
 </style>
