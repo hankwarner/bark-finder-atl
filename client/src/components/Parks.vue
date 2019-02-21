@@ -10,6 +10,14 @@
       v-for="(park) in parks"
       v-bind:key="park.id"
     >
+    <div 
+      v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
+
       <v-hover>
         <v-card
           slot-scope="{ hover }"
@@ -133,8 +141,8 @@ export default {
 
       try {
         let parks = await ParksService.index()
-        this.loading = false
         this.parks = parks.data
+        this.loading = false
         
       } catch(err) {
         this.error = err.message.toString()

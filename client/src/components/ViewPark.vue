@@ -105,7 +105,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       park: [],
       review: {
         id: null
@@ -122,11 +121,10 @@ export default {
   },
   methods: {
     async getPark() {
-      this.loading = true
       let parkId = this.$store.state.route.params.parkId
+
       try {
         let park = await ParksService.show(parkId)
-        this.loading = false
         this.park = park.data
         
       } catch(err) {

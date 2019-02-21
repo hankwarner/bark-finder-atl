@@ -20,7 +20,14 @@
       <v-btn
         @click="login">Login</v-btn>
     </form>
-    
+
+    <div 
+      v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
@@ -30,6 +37,7 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
+      loading: false,
       username: '',
       password: '',
       error: null
@@ -37,6 +45,8 @@ export default {
   },
   methods: {
     async login() {
+      this.loading = true
+
       try {
         const response = await AuthenticationService.login({
           username: this.username,
@@ -47,6 +57,8 @@ export default {
         this.$store.dispatch('setUser', localStorage.user)
         this.$store.dispatch('setUserId', localStorage.userId)
         
+        this.loading = false
+
         this.$router.push({
           name: 'Landing'
         })
