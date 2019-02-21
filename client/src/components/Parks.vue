@@ -1,44 +1,44 @@
 <template>
     
-      <v-container fluid>
-        <v-layout row wrap justify-space-around
-          class="parks"
-          v-for="(park) in parks"
-          v-bind:key="park.id">
-            
-            <v-flex d-flex xs12 md5>
-              <v-img 
-                :src="park.imageUrl"
-                aspect-ratio="2"
-                alt="dog park"
-                @click="navigateTo({
-                  name: 'park',
-                  params: {
-                    parkId: park.id
-                  }
-                })">
-              </v-img>
-            </v-flex>
-            
+  <v-container fluid>
+    <v-layout row wrap justify-space-around
+      class="parks"
+      v-for="(park) in parks"
+      v-bind:key="park.id">
+        
+        <v-flex d-flex xs12 md5>
+          <v-img 
+            :src="park.imageUrl"
+            aspect-ratio="2"
+            alt="dog park"
+            @click="navigateTo({
+              name: 'park',
+              params: {
+                parkId: park.id
+              }
+            })">
+          </v-img>
+        </v-flex>
+        
+        <v-flex d-flex xs12 md6>
+          <v-layout row wrap>
+
             <v-flex d-flex xs12 md6>
-              <v-layout row wrap>
-
-                <v-flex d-flex xs12 md6>
-                  <h4 class="display-1">{{park.name}}</h4>
-                </v-flex>
-
-                <v-flex d-flex xs12 md6>
-                  <h6 class="title">{{park.neighborhood}}</h6>
-                </v-flex>
-
-                <v-flex d-flex xs12 md12>
-                  <p class="subheading">{{park.description}}</p>
-                </v-flex>
-
-              </v-layout>
+              <h4 class="display-1">{{park.name}}</h4>
             </v-flex>
-        </v-layout>
-      </v-container>
+
+            <v-flex d-flex xs12 md6>
+              <h6 class="title">{{park.neighborhood}}</h6>
+            </v-flex>
+
+            <v-flex d-flex xs12 md12>
+              <p class="subheading">{{park.description}}</p>
+            </v-flex>
+
+          </v-layout>
+        </v-flex>
+    </v-layout>
+  </v-container>
     
 </template>
 
