@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Landing from '@/components/Landing'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Parks from '@/components/Parks'
@@ -15,8 +15,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Landing',
+      component: Landing
     },
     {
       path: '/register',

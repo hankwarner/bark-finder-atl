@@ -64,7 +64,7 @@ export default {
         this.$store.dispatch('setUserId', localStorage.userId)
 
         this.$router.push({
-          name: 'HelloWorld'
+          name: 'Landing'
         })
       } catch(err) {
         this.error = err.message.toString()

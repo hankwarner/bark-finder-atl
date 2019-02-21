@@ -3,7 +3,7 @@
         <v-toolbar-title>
             <span
                 class="home"
-                @click="navigateTo({name: 'HelloWorld'})">
+                @click="navigateTo({name: 'Landing'})">
                 BarkFinderATL
             </span>
         </v-toolbar-title>
@@ -63,7 +63,7 @@ export default {
             this.$store.dispatch('setUserId', null)
             //Redirect to homepage
             this.$router.push({
-                name: 'HelloWorld'
+                name: 'Landing'
             })
         }
     }
