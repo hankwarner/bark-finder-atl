@@ -1,4 +1,5 @@
 require("dotenv").config()
+require('newrelic')
 const passportConfig = require("./passport-config")
 const expressValidator = require("express-validator")
 
