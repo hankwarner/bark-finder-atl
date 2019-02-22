@@ -64,6 +64,6 @@ export default new Router({
       path: '/events/:eventId',
       name: 'event',
       component: ViewEvent
-    },
+    }
   ]
 })

@@ -1,4 +1,5 @@
 'use strict'
+require('newrelic');
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
