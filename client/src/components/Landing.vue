@@ -41,6 +41,7 @@
     <v-flex d-flex xs12 md3>
       <v-card>
         <v-img
+          class="pointer"
           @click="navigateTo({
               name: 'parks'
           })"
@@ -68,6 +69,7 @@
     <v-flex d-flex xs12 md3>
       <v-card>
         <v-img
+          class="pointer"
           @click="navigateTo({
               name: 'restaurants'
           })"
@@ -95,7 +97,11 @@
     <v-flex d-flex xs12 md3>
       <v-card>
         <v-img
-          src="../../static/images/event.jpg">
+          class="pointer"
+          src="../../static/images/event.jpg"
+          @click="navigateTo({
+            name: 'events'
+          })">
         </v-img>
         <v-card-title primary-title>
           <div>
@@ -104,7 +110,13 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat>View More</v-btn>
+          <v-btn 
+            flat
+            @click="navigateTo({
+              name: 'events'
+            })">
+            View More
+          </v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

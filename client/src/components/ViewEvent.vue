@@ -4,27 +4,26 @@
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
           <v-img 
-            :src="park.imageUrl"
+            :src="event.imageUrl"
             aspect-ratio="4"
-            alt="dog park"
-          >
+            alt="dog event">
           </v-img>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{park.name}}</h2>
+          <h2 class="display-3">{{event.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{park.neighborhood}}</h3>
+          <h3 class="display-2">{{event.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{park.address}}</h5>
+          <h5 class="headline">{{event.address}}</h5>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{park.description}}</p>
+          <p class="subheading">{{event.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -38,7 +37,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 md12
-          v-for="(review) in park.reviews"
+          v-for="(review) in event.reviews"
           v-bind:key="review.id">
           
           <v-layout row wrap align-start justify-space-between>
@@ -91,8 +90,9 @@
 <script>
 import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
-import ParksService from '@/services/ParksService.js'
+import EventsService from '@/services/EventsService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+
 export default {
   components: {
     'review': Review,
@@ -100,7 +100,7 @@ export default {
   },
   data() {
     return {
-      park: [],
+      event: [],
       review: {
         id: null
       },
@@ -109,18 +109,18 @@ export default {
   },
   
   mounted() {
-    this.getPark()
+    this.getEvent()
   },
   watch: {
-    park: "getPark"
+    park: "getEvent"
   },
   methods: {
-    async getPark() {
-      let parkId = this.$store.state.route.params.parkId
+    async getEvent() {
+      let eventId = this.$store.state.route.params.eventId
 
       try {
-        let park = await ParksService.show(parkId)
-        this.park = park.data
+        let event = await EventsService.show(eventId)
+        this.event = event.data
         
       } catch(err) {
         this.error = err.message.toString()

@@ -1,6 +1,5 @@
-<template>
-    
-  <v-container fluid>
+<template> 
+<v-container fluid>
   <v-layout row wrap justify-space-around>
     <v-flex 
       d-flex 
@@ -8,8 +7,8 @@
       md4
       mx-5
       my-4
-      v-for="(restaurant) in restaurants"
-      v-bind:key="restaurant.id"
+      v-for="(event) in events"
+      v-bind:key="event.id"
     >
       <v-hover>
         <v-card
@@ -21,11 +20,11 @@
           <v-img
             class="pointer"
             :aspect-ratio="16/9"
-            :src="restaurant.imageUrl"
+            :src="event.imageUrl"
             @click="navigateTo({
-              name: 'restaurant',
+              name: 'event',
               params: {
-                restaurantId: restaurant.id
+                eventId: event.id
               }
             })"
           >
@@ -35,7 +34,7 @@
                 class="d-flex transition-fast-in-fast-out light-blue accent-3 v-card--reveal display-3 white--text"
                 style="height: 100%;"
               >
-                {{restaurant.neighborhood}}
+                {{event.neighborhood}}
               </div>
             </v-expand-transition>
           </v-img>
@@ -45,15 +44,15 @@
           >
             <h3 class="display-1 font-weight-light orange--text mb-2 pointer"
               @click="navigateTo({
-                name: 'restaurant',
+                name: 'event',
                 params: {
-                  restaurantId: restaurant.id
+                  eventId: event.id
                 }
               })">
-                {{restaurant.name}}
+                {{event.name}}
             </h3>
             <div class="font-weight-light title mb-2">
-              {{restaurant.neighborhood}}
+              {{event.neighborhood}}
             </div>
           </v-card-text>
         </v-card>
@@ -65,28 +64,28 @@
 </template>
 
 <script>
-import RestaurantsService from '@/services/RestaurantsService.js'
+import EventsService from '@/services/EventsService.js'
 
 export default {
   data() {
     return {
       loading: false,
-      restaurants: [],
+      events: [],
       error: null
     }
   },
   mounted() {
-    this.callRestaurants()
+    this.callEvents()
   },
 
   methods: {
-    async callRestaurants() {
+    async callEvents() {
         this.loading = true
 
       try {
-        let restaurants = await RestaurantsService.index()
+        let events = await EventsService.index()
+        this.events = events.data
         this.loading = false
-        this.restaurants = restaurants.data
         
       } catch(err) {
         this.error = err.message.toString()
@@ -102,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-.restaurants {
+.events {
   margin-bottom: 4%;
 }
 

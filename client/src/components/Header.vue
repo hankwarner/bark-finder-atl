@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar fixed class="light-blue darken-3">
+    <v-toolbar fixed class="light-blue darken-2">
         <v-toolbar-title>
             <span
                 class="home"
@@ -17,7 +17,10 @@
                 @click="navigateTo({name: 'restaurants'})">
                 Restaurants
             </v-btn>
-            <v-btn flat>Events</v-btn>
+            <v-btn flat
+                @click="navigateTo({name: 'events'})">
+                Events
+            </v-btn>
             
         </v-toolbar-items>
 

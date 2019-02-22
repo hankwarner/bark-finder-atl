@@ -32,4 +32,12 @@ export default {
   margin-top: 60px;
 }
 
+.description-map-block {
+  margin-top: 3%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 </style>

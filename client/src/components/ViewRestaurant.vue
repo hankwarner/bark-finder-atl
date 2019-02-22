@@ -7,12 +7,7 @@
             :src="restaurant.imageUrl"
             aspect-ratio="4"
             alt="restaurant"
-            @click="navigateTo({
-              name: 'restaurant',
-              params: {
-                restaurantId: restaurant.id
-              }
-            })">
+          >
           </v-img>
         </v-flex>
         

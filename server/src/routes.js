@@ -2,6 +2,7 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const ParkController = require('./controllers/ParkController')
 const ReviewController = require('./controllers/ReviewController')
 const RestaurantController = require('./controllers/RestaurantController')
+const EventController = require('./controllers/EventController')
 const validation = require("./validation")
 const helper = require("./auth/helpers")
 
@@ -20,5 +21,11 @@ module.exports = (app) => {
     app.get('/restaurants', RestaurantController.index),
     app.get('/restaurants/:id', RestaurantController.show),
     app.post('/restaurants/:id/review/create', helper.ensureAuthenticated, ReviewController.create)
-    app.post('/restaurants/:id/review/destroy', ReviewController.destroy)
+    app.post('/restaurants/:id/review/destroy', ReviewController.destroy),
+
+    //Event routes
+    app.get('/events', EventController.index),
+    app.get('/events/:id', EventController.show),
+    app.post('/events/:id/review/create', helper.ensureAuthenticated, ReviewController.create)
+    app.post('/events/:id/review/destroy', ReviewController.destroy)
 }

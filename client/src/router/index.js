@@ -8,6 +8,8 @@ import ViewPark from '@/components/ViewPark'
 import Review from '@/components/Review'
 import Restaurants from '@/components/Restaurants'
 import ViewRestaurant from '@/components/ViewRestaurant'
+import Events from '@/components/Events'
+import ViewEvent from '@/components/ViewEvent'
 
 Vue.use(Router)
 
@@ -52,6 +54,16 @@ export default new Router({
       path: '/restaurants/:restaurantId',
       name: 'restaurant',
       component: ViewRestaurant
-    }
+    },
+    {
+      path: '/events',
+      name: 'events',
+      component: Events
+    },
+    {
+      path: '/events/:eventId',
+      name: 'event',
+      component: ViewEvent
+    },
   ]
 })

@@ -1,6 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
 const Restaurant = require("../../src/db/models").Restaurant;
+const Review = require("../../src/db/models").Review;
 
 describe('Restaurants', () => {
     
@@ -25,6 +26,16 @@ describe('Restaurants', () => {
                     imageUrl: '../../static/images/pizzaguy.jpg',
                     lat: 33.759815,
                     lng: -84.364534,
+                    reviews: [{
+                        userId: this.user.id,
+                        body: "Try the deep dish",
+                        rating: 5
+                    }]
+                }, {
+                    include: {
+                        model: Review,
+                        as: "reviews"
+                    }
                 })
                 .then((restaurant) => {
                     this.restaurant = restaurant;
@@ -52,16 +63,16 @@ describe('Restaurants', () => {
         })  
     })
 
-    // describe('#getReviews()', () => {
-    //     it('should return all reviews with the park in scope', (done) => {
-    //         this.restaurant.getReviews()
-    //         .then((associatedReviews) => {
-    //             expect(associatedReviews[0].body).toContain("Try the deep dish");
-    //             expect(associatedReviews[0].rating).toEqual(5);
-    //             expect(associatedReviews[0].restaurantId).toEqual(this.restaurant.id);
-    //             expect(associatedReviews[0].userId).toEqual(this.user.id);
-    //             done();
-    //         })
-    //     })
-    // })
+    describe('#getReviews()', () => {
+        it('should return all reviews with the restaurant in scope', (done) => {
+            this.restaurant.getReviews()
+            .then((associatedReviews) => {
+                expect(associatedReviews[0].body).toContain("Try the deep dish");
+                expect(associatedReviews[0].rating).toEqual(5);
+                expect(associatedReviews[0].restaurantId).toEqual(this.restaurant.id);
+                expect(associatedReviews[0].userId).toEqual(this.user.id);
+                done();
+            })
+        })
+    })
 })

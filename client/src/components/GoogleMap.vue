@@ -20,6 +20,7 @@
 <script>
 import ParksService from '@/services/ParksService.js'
 import RestaurantsService from '@/services/RestaurantsService.js'
+import EventsService from '@/services/EventsService.js'
 import { debug } from 'util';
 export default {
   name: "GoogleMap",
@@ -40,6 +41,7 @@ export default {
     async setPlace() {
       let parkId = this.$store.state.route.params.parkId
       let restaurantId = this.$store.state.route.params.restaurantId
+      let eventId = this.$store.state.route.params.eventId
       let item;
       
       try {
@@ -47,6 +49,8 @@ export default {
           item = await ParksService.show(parkId)
         } else if (restaurantId) {
           item = await RestaurantsService.show(restaurantId)
+        } else if (eventId) {
+          item = await EventsService.show(eventId)
         }
         
         let lat = parseFloat(item.data.lat)
