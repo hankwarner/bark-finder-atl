@@ -52,24 +52,26 @@
             >
               <v-toolbar-side-icon></v-toolbar-side-icon>
             </v-btn>
-            <v-list>
+            <v-list v-if="!$store.state.isUserLoggedIn">
                 <v-list-tile
-                    v-for="(menuItem, i) in menuItems"
+                    v-for="(menuItem, i) in unregisteredUserMenuItems"
                     :key="i"
-                    @click="menuItem.link"
+                    @click="navigateTo({name: menuItem.link})"
                 >
-                    <v-list-tile-title
-                        v-if="!$store.state.isUserLoggedIn"
-                        @click="navigateTo({name: menuItem.link})"
-                    >
-                        {{ menuItem.title }}
+                    <v-list-tile-title>
+                        {{menuItem.title}}
                     </v-list-tile-title>
+                </v-list-tile>
+            </v-list>
 
-                    <v-list-tile-title
-                        v-else
-                        @click="logout()"
-                    >
-                        Logout
+            <v-list v-else>
+                <v-list-tile
+                    v-for="(menuItem, i) in registeredUserMenuItems"
+                    :key="i"
+                    @click="navigateTo({name: menuItem.link})"
+                >
+                    <v-list-tile-title>
+                        {{menuItem.title}}
                     </v-list-tile-title>
                 </v-list-tile>
             </v-list>
@@ -81,12 +83,19 @@
 <script>
 export default {
     data: () => ({
-        menuItems: [
+        unregisteredUserMenuItems: [
             { title: 'Parks', link: 'parks' },
             { title: 'Restaurants', link: 'restaurants' },
             { title: 'Events', link: 'events' },
             { title: 'Login', link: 'login' },
             { title: 'Sign Up', link: 'register' }
+        ],
+
+        registeredUserMenuItems: [
+            { title: 'Parks', link: 'parks' },
+            { title: 'Restaurants', link: 'restaurants' },
+            { title: 'Events', link: 'events' },
+            { title: 'View Profile', link: 'profile' }
         ]
     }),
     
