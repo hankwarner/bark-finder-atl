@@ -1,47 +1,73 @@
 <template>
-  <div>
-    <h1>Register</h1>
+<v-container grid-list-md text-xs-center>
+  <v-layout row wrap justify-space-around>
+    <v-flex mb-1 xs12 md12>
+      <h2 class="display-3">
+        Register
+      </h2>
+    </v-flex>
 
-    <form>
-      <v-text-field
-        type="email"
-        name="email"
-        v-model="email"
-        placeholder="Email" />
-
-      <v-text-field
-        type="username"
-        name="username"
-        v-model="username"
-        placeholder="Username" />
-
-      <v-text-field
-        type="password"
-        name="password"
-        v-model="password"
-        placeholder="Password" />
-
-        <v-text-field
-        type="password"
-        name="passwordConfirmation"
-        v-model="passwordConfirmation"
-        placeholder="Confirm Password" />
-
-        <div class="error" v-html="error" />
-
-      <v-btn
-        @click="register">Register</v-btn>
-    </form>
-
-    <div 
-      v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-      ></v-progress-circular>
-    </div>
-    
-  </div>
+    <v-flex xs12 md4>
+      <form>
+        <v-layout my-4 row wrap justify-space-around>
+          <v-flex d-flex xs12 md12>
+            <v-text-field
+              name="email"
+              v-model="email"
+              placeholder="Email"
+              single-line
+              solo
+            ></v-text-field>
+          </v-flex>
+          <v-flex d-flex xs12 md12>
+            <v-text-field
+              name="Username"
+              placeholder="Username"
+              v-model="username"
+              single-line
+              solo
+              ></v-text-field>
+          </v-flex>
+          <v-flex d-flex xs12 md12>
+            <v-text-field
+              name="Password"
+              type="password"
+              placeholder="Password"
+              v-model="password"
+              single-line
+              solo
+            ></v-text-field>
+          </v-flex>
+          <v-flex d-flex xs12 md12>
+            <v-text-field
+              name="passwordConfirmation"
+              placeholder="Confirm password"
+              type="password"
+              v-model="passwordConfirmation"
+              single-line
+              solo
+            ></v-text-field>
+          </v-flex>
+          <div class="error" v-html="error" />
+          <v-flex d-flex xs6 md5>
+            <v-btn
+              @click="register"
+            >
+              Register
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </form>
+      <div 
+        v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
+    </v-flex>
+  </v-layout>
+</v-container>
 </template>
 
 <script>
@@ -89,10 +115,4 @@ export default {
 </script>
 
 <style scoped>
-
-  .v-text-field {
-    width: 20%;
-    margin-left: 40%;
-  }
-
 </style>

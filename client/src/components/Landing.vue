@@ -16,7 +16,7 @@
           </h2>
           <h4
             class="display-1 font-weight-thin grey--text text--darken-4">
-            Where to go in ATL with your pup.
+            Where to go in ATL with your pup
           </h4>
         </v-img>
       </v-card>
@@ -32,7 +32,7 @@
     <v-flex mb-5 xs12 md6>
       <span
         class="text-md-center subheading">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Do you like to bring your dog everywhere with you? Bark Finder ATL is your source of information on local establishments and events that are dog-friendly. Before you make plans with your furry friend, make sure to check Bark Finder Atl for information and reviews on your local pet-scene. From the West End to Brookhaven, from East Lake to Vinings, we've got you covered.
       </span>
     </v-flex>
   </v-layout>
