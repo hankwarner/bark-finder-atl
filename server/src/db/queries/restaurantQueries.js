@@ -9,7 +9,10 @@ module.exports = {
                 include: [{
                     model: Review,
                     as: "reviews"
-                }]
+                }],
+                order: [
+                    ['name', 'ASC'],
+                ]
             })
 
             restaurants.forEach((restaurant) => {

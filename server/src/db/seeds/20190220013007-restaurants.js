@@ -23,7 +23,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      name: "Grindhouse Killer BUrgers",
+      name: "Grindhouse Killer Burgers",
       imageUrl: '../../static/images/grindhouse.jpg',
       address: '701 Memorial Dr SE, Atlanta, GA 30316',
       neighborhood: 'Cabbagetown',
