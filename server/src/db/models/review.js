@@ -8,9 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     parkId: {
       type: DataTypes.INTEGER
     },
-    restaurantId: {
-      type: DataTypes.INTEGER
-    },
     body: {
       type: DataTypes.STRING,
       allowNull: false
