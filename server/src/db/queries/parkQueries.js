@@ -5,7 +5,17 @@ const User = require('../models').User
 module.exports = {
   async getAllParks(callback) {
     try {
-      let parks = await Park.all()
+      let parks = await Park.all({
+        include: [{
+          model: Review,
+          as: "reviews"
+        }]
+      })
+
+      parks.forEach((park) => {
+        park.rating = park.getRating()
+      })
+      
       return callback(null, parks)
         
     } catch(error) {

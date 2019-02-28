@@ -53,6 +53,14 @@
             </h3>
             <div class="font-weight-light title mb-2">
               {{park.neighborhood}}
+              <v-rating
+                :value="park.rating"
+                color="amber"
+                dense
+                half-increments
+                readonly
+                size="14"
+              ></v-rating>
             </div>
           </v-card-text>
         </v-card>
