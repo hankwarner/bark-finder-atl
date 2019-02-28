@@ -35,6 +35,9 @@ module.exports = {
       lng: {
         type: Sequelize.DECIMAL(10,6)
       },
+      rating: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -3,10 +3,19 @@ const Review = require('../models').Review
 const User = require('../models').User
 
 module.exports = {
-
     async getAllRestaurants(callback) {
         try {
-            let restaurants = await Restaurant.all()
+            let restaurants = await Restaurant.all({
+                include: [{
+                    model: Review,
+                    as: "reviews"
+                }]
+            })
+
+            restaurants.forEach((restaurant) => {
+                restaurant.rating = restaurant.getRating()
+            })
+
             return callback(null, restaurants)
             
         } catch(error) {
@@ -24,6 +33,9 @@ module.exports = {
                     include: [{model: User}]
                 }]
             })
+
+            restaurant.rating = restaurant.getRating()
+
             return callback(null, restaurant)
         
         } catch(error) {

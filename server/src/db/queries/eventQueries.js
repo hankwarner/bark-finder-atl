@@ -5,7 +5,17 @@ const User = require('../models').User
 module.exports = {
   async getAllEvents(callback) {
     try {
-      let events = await Event.all()
+      let events = await Event.all({
+        include: [{
+          model: Review,
+          as: "reviews"
+        }]
+      })
+
+      events.forEach((event) => {
+        event.rating = event.getRating()
+      })
+
       return callback(null, events)
         
     } catch(error) {
@@ -23,6 +33,9 @@ module.exports = {
           include: [{model: User}]
         }]
       })
+
+      event.rating = event.getRating()
+      
       return callback(null, event)
     
     } catch(error) {

@@ -30,6 +30,10 @@ describe('Restaurants', () => {
                         userId: this.user.id,
                         body: "Try the deep dish",
                         rating: 5
+                    }, {
+                        userId: this.user.id,
+                        body: "Detroit red top is the way to go",
+                        rating: 3
                     }]
                 }, {
                     include: {
@@ -73,6 +77,13 @@ describe('Restaurants', () => {
                 expect(associatedReviews[0].userId).toEqual(this.user.id);
                 done();
             })
+        })
+    })
+
+    describe('#getRating()', () => {
+        it('should return the overall rating of the restaurant in scope', (done) => {
+            expect(this.restaurant.getRating()).toBe(4);
+            done();
         })
     })
 })
