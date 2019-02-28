@@ -72,7 +72,6 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
-
 export default {
   data () {
     return {
@@ -87,7 +86,6 @@ export default {
   methods: {
     async register() {
       this.loading = true
-
       try {
         const response = await AuthenticationService.register({
           email: this.email,
@@ -99,9 +97,7 @@ export default {
         this.$store.dispatch('setToken', localStorage.token)
         this.$store.dispatch('setUser', localStorage.user)
         this.$store.dispatch('setUserId', localStorage.userId)
-
         this.loading = false
-
         this.$router.push({
           name: 'Landing'
         })

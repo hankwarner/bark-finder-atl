@@ -23,6 +23,15 @@
           <h5 class="headline">{{restaurant.address}}</h5>
         </v-flex>
 
+        <v-flex d-flex xs12 md12>
+          <v-rating
+            v-model="restaurant.rating"
+            background-color="orange lighten-3"
+            color="orange"
+            medium
+          ></v-rating>
+        </v-flex>
+
         <v-flex class="description-map-block" d-flex xs12 md6>
           <p class="subheading">{{restaurant.description}}</p>
         </v-flex>

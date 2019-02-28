@@ -8,7 +8,7 @@ module.exports = {
                 //send error back to client
                 res.status(400).send(err.message)
             } else {
-                //send parks back to client
+                //send restaurants back to client
                 res.send(restaurants)
             }
         })

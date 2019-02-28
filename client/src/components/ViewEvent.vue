@@ -22,6 +22,15 @@
           <h5 class="headline">{{event.address}}</h5>
         </v-flex>
 
+        <v-flex d-flex xs12 md12>
+          <v-rating
+            v-model="event.rating"
+            background-color="orange lighten-3"
+            color="orange"
+            medium
+          ></v-rating>
+        </v-flex>
+
         <v-flex class="description-map-block" d-flex xs12 md6>
           <p class="subheading">{{event.description}}</p>
         </v-flex>

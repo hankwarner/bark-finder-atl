@@ -30,6 +30,10 @@ describe('Events', () => {
                         userId: this.user.id,
                         body: "Best game of the year",
                         rating: 5
+                    }, {
+                        userId: this.user.id,
+                        body: "Not at all what I expected",
+                        rating: 1
                     }]
                 }, {
                     include: {
@@ -73,6 +77,13 @@ describe('Events', () => {
                 expect(associatedReviews[0].userId).toEqual(this.user.id);
                 done();
             })
+        })
+    })
+
+    describe('#getRating()', () => {
+        it('should return the overall rating of the event in scope', (done) => {
+            expect(this.event.getRating()).toBe(3);
+            done();
         })
     })
 })

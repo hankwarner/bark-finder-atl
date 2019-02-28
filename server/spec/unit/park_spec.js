@@ -30,6 +30,10 @@ describe('Parks', () => {
                         userId: this.user.id,
                         body: "Great spot",
                         rating: 5
+                    }, {
+                        userId: 1,
+                        body: "Not my favorite but it's okay.",
+                        rating: 3
                     }]
                 }, {
                     include: {
@@ -73,6 +77,13 @@ describe('Parks', () => {
                 expect(associatedReviews[0].userId).toEqual(this.user.id);
                 done();
             })
+        })
+    })
+
+    describe('#getRating()', () => {
+        it('should return the overall rating of the park in scope', (done) => {
+            expect(this.park.getRating()).toBe(4);
+            done();
         })
     })
 })

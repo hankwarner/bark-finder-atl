@@ -22,6 +22,46 @@ module.exports = {
       lng: -84.364534,
       createdAt: new Date(),
       updatedAt: new Date()
+    }, {
+      name: "Grindhouse Killer BUrgers",
+      imageUrl: '../../static/images/grindhouse.jpg',
+      address: '701 Memorial Dr SE, Atlanta, GA 30316',
+      neighborhood: 'Cabbagetown',
+      description: "Grindhouse Killer Burgers serves up arguably Atlanta's best burgers in a casual & fun environment. Cult movies on the TVs (as well as sports), crazy vintage robot themed design and a spacious dog-friendly patio area overlooking Memorial Drive. Water bowls are also provided.",
+      lat: 33.746565,
+      lng: -84.364755,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      name: "Dakota Blue",
+      imageUrl: '../../static/images/dakotablue.jpg',
+      address: '454 Cherokee Ave SE, Atlanta, GA, US, 30312',
+      neighborhood: 'Grant Park',
+      description: 'Dakota Blue is a cozy neighborhood bar and grill serving Mexican and American favorites such as honey chipotle wings, southwestern egg rolls, BBQ sandwiches, burgers, fish tacos, and super chicken burritos. Dogs are welcome in the outdoor seating area.',
+      lat: 33.742182,
+      lng: -84.373306,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      name: "Joe's on Juniper",
+      imageUrl: '../../static/images/joes.jpg',
+      address: '1049 Juniper St NE, Atlanta, GA, US, 30309',
+      neighborhood: 'Midtown',
+      description: 'Joe\’s On Juniper, a midtown tavern, is open seven days a week, serving an array of traditional American foods, all of which perfectly complement the extensive beer and cocktail list, and offering one of Atlanta\'s favorite dog-friendly outdoor dining spaces. Menu features tasty offerings such as Thai nachos, jumbo fried shrimp, Buffalo chicken salad, Angus beef burgers, tacos, wraps and sandwiches, and white chocolate mousse for dessert.',
+      lat: 33.783419,
+      lng: -84.382116,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      name: "Brewhouse Cafe",
+      imageUrl: '../../static/images/brewhouse.jpg',
+      address: '401 Moreland Ave NE, Atlanta, GA, US, 30307',
+      neighborhood: 'Little 5 Points',
+      description: 'Brewhouse Cafe is a hit with the locals who love to bring their dogs and enjoy the casual setting. It\'s also considered by some to be Atlanta\'s best soccar bar',
+      lat: 33.765348,
+      lng: -84.348884,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
