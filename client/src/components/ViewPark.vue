@@ -74,7 +74,7 @@
                 flat 
                 large 
                 color="error"
-                @click="deleteReview(review)"
+                @click="deleteReview(review.id)"
                 v-if="$store.state.user === review.User.username">
                 Delete
               </v-btn>
@@ -102,6 +102,7 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+
 export default {
   components: {
     'review': Review,
@@ -136,11 +137,12 @@ export default {
       }
     },
   
-    async deleteReview(review) {
-      let reviewId = review.id
-      //TODO: review not being passed in from on click event
+    async deleteReview(reviewId) {
+      let parkId = this.$store.state.route.params.parkId
+      
       try {
-        await ReviewsService.destroy(reviewId)
+        await ReviewsService.destroy(parkId, reviewId)
+
       } catch(err) {
         this.error = err.message.toString()
       }

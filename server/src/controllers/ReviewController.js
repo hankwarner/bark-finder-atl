@@ -8,16 +8,21 @@ module.exports = {
         body: req.body.body,
         rating: req.body.rating,
         userId: req.body.userId,
-        parkId: req.body.parkId,
-        restaurantId: null,
+        parkId: req.body.parkId
       }
     } else if (req.body.restaurantId) {
       var newReview = {
         body: req.body.body,
         rating: req.body.rating,
         userId: req.body.userId,
-        parkId: null,
-        restaurantId: req.body.restaurantId,
+        restaurantId: req.body.restaurantId
+      }
+    } else if (req.body.eventId) {
+      var newReview = {
+        body: req.body.body,
+        rating: req.body.rating,
+        userId: req.body.userId,
+        eventId: req.body.eventId
       }
     }
 
@@ -34,13 +39,13 @@ module.exports = {
   },
 
     destroy(req, res, next){
-        reviewQueries.deleteReview(req, (err) => {
-          if(err){
-            console.log(err)
-            res.status(400).send(err.message)
-          } else {
-            res.status(200)
-          }
-        })
+      reviewQueries.deleteReview(req, (err) => {
+        if(err){
+          console.log(err)
+          res.status(400).send(err.message)
+        } else {
+          res.status(200)
+        }
+      })
     }
   }

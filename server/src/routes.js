@@ -15,7 +15,7 @@ module.exports = (app) => {
     app.get('/parks', ParkController.index),
     app.get('/parks/:id', ParkController.show),
     app.post('/parks/:id/review/create', helper.ensureAuthenticated, ReviewController.create)
-    app.post('/parks/:id/review/destroy', ReviewController.destroy)
+    app.post('/parks/:parkId/review/:id/destroy', ReviewController.destroy)
 
     //Restaurant routes
     app.get('/restaurants', RestaurantController.index),

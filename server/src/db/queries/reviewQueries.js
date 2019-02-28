@@ -13,13 +13,11 @@ module.exports = {
         
     },
 
-    async destroy(req, callback){
+    async deleteReview(req, callback){
         try {
-            //TODO: check if user is authorized
-
             //find the review by ID and then delete it from the db
-            await Review.findById(req.params.id)
-            Review.destroy()
+            var review = await Review.findById(req.params.id)
+            review.destroy()
             return callback(null)
 
         } catch(err) {

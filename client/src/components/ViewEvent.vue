@@ -73,7 +73,7 @@
                 flat 
                 large 
                 color="error"
-                @click="deleteReview(review)"
+                @click="deleteReview(review.id)"
                 v-if="$store.state.user === review.User.username">
                 Delete
               </v-btn>
@@ -121,7 +121,7 @@ export default {
     this.getEvent()
   },
   watch: {
-    park: "getEvent"
+    event: "getEvent"
   },
   methods: {
     async getEvent() {
@@ -136,11 +136,12 @@ export default {
       }
     },
   
-    async deleteReview(review) {
-      let reviewId = review.id
-      //TODO: review not being passed in from on click event
+    async deleteReview(reviewId) {
+      let eventId = this.$store.state.route.params.eventId
+      
       try {
-        await ReviewsService.destroy(reviewId)
+        await ReviewsService.destroy(eventId, reviewId)
+
       } catch(err) {
         this.error = err.message.toString()
       }
