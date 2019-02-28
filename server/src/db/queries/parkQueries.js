@@ -9,7 +9,10 @@ module.exports = {
         include: [{
           model: Review,
           as: "reviews"
-        }]
+        }],
+        order: [
+          ['name', 'ASC'],
+        ]
       })
 
       parks.forEach((park) => {
