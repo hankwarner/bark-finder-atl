@@ -33,6 +33,9 @@ module.exports = {
           include: [{model: User}]
         }]
       })
+
+      park.rating = park.getRating()
+      
       return callback(null, park)
     
     } catch(error) {
