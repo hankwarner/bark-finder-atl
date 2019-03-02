@@ -47,7 +47,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 md12
-          v-for="(review) in $store.state.park.reviews"
+          v-for="(review) in allReviews"
           v-bind:key="review.id">
           
           <v-layout row wrap align-start justify-space-between>
@@ -140,6 +140,7 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   components: {
@@ -174,6 +175,7 @@ export default {
       let parkId = this.$store.state.route.params.parkId
       
       try {
+        this.$store.dispatch('deleteParkReview', reviewId)
         await ReviewsService.destroy(parkId, reviewId)
 
       } catch(err) {
@@ -183,8 +185,8 @@ export default {
   },
 
   computed: {
-    newReview: async () => {
-      return this.$store.state.newReview
+    allReviews: () => {
+      return store.state.park.reviews
     }
   }
     

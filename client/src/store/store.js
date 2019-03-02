@@ -53,6 +53,15 @@ export default new Vuex.Store({
         },
         setNewReview(state, newReview) {
             state.newReview = newReview
+        },
+        deleteParkReview(state, reviewId) {
+            let reviews = state.park.reviews
+
+            var isDeletedReview = review => review.id === reviewId
+            
+            let deletedReview = reviews.findIndex(isDeletedReview)
+            
+            reviews.splice(deletedReview, 1)
         }
     },
     actions: {
@@ -85,6 +94,9 @@ export default new Vuex.Store({
         },
         setNewReview({commit}, newReview) {
             commit('setNewReview', newReview)
+        },
+        deleteParkReview({commit}, reviewId) {
+            commit('deleteParkReview', reviewId)
         },
     }
 })
