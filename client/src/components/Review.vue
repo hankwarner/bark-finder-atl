@@ -56,19 +56,16 @@ export default {
       }
       
       try {
-
         if(parkId) {
           await ReviewsService.create(parkId, null, null, newReview)
-
         } else if (restaurantId) {
           await ReviewsService.create(null, restaurantId, null, newReview)
-
         } else if (eventId) {
           await ReviewsService.create(null, null, eventId, newReview)
         }
-        
       } catch(err) {
-        this.error = err.message.toString()
+        this.error = 'You must be logged in to do that'
+        throw this.error
       }
 
       this.$store.dispatch('setNewReview', newReview)

@@ -13,7 +13,9 @@ export default new Vuex.Store({
         parks: [],
         park: null,
         restaurants: [],
+        restaurant: null,
         events: [],
+        event: null,
         newReview: null
     },
     mutations: {
@@ -40,6 +42,15 @@ export default new Vuex.Store({
         setRestaurants(state, restaurants) {
             state.restaurants = restaurants
         },
+        setRestaurant(state, restaurant) {
+            state.restaurant = restaurant
+        },
+        setEvents(state, events) {
+            state.events = events
+        },
+        setEvent(state, event) {
+            state.event = event
+        },
         setNewReview(state, newReview) {
             state.newReview = newReview
         }
@@ -63,8 +74,14 @@ export default new Vuex.Store({
         setRestaurants({commit}, restaurants) {
             commit('setRestaurants', restaurants)
         },
+        setRestaurant({commit}, restaurant) {
+            commit('setRestaurant', restaurant)
+        },
         setEvents({commit}, events) {
             commit('setEvents', events)
+        },
+        setEvent({commit}, event) {
+            commit('setEvent', event)
         },
         setNewReview({commit}, newReview) {
             commit('setNewReview', newReview)

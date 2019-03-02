@@ -82,16 +82,14 @@
           </v-layout>
         </v-flex>
 
-        <!-- new review -->
+        <!-- show new review when added -->
         <v-flex 
           v-if="$store.state.newReview"
           d-flex 
           xs12 
           md12
         >
-          
           <v-layout row wrap align-start justify-space-between>
-            
             <v-flex class="body-2" d-flex xs5 md2>
               <v-rating
                 small
@@ -142,13 +140,13 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
-import store from '@/store/store'
 
 export default {
   components: {
     'review': Review,
     'google-map': GoogleMap
   },
+
   data() {
     return {
       error: null
@@ -168,7 +166,7 @@ export default {
         this.$store.dispatch('setPark', park.data)
         
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
     },
   
@@ -186,11 +184,6 @@ export default {
 
   computed: {
     newReview: async () => {
-      //if a new review is added to, rerender the reviews object
-    //   if(store.state.newReview) {
-    //     debugger
-    //     return this.getPark()
-    //   }
       return this.$store.state.newReview
     }
   }
