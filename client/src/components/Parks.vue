@@ -87,19 +87,13 @@ export default {
     this.callParks()
   },
 
-  computed: {
-    parks: () => {
-      return store.state.parks
-    }
-  },
-
   methods: {
     async callParks() {
         this.loading = true
 
       try {
         let parks = await ParksService.index()
-        this.$store.dispatch('setParks', parks.data)
+        store.dispatch('setParks', parks.data)
         this.loading = false
         
       } catch(err) {
@@ -110,7 +104,12 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     }
+  },
 
+  computed: {
+    parks: () => {
+      return store.state.parks.parks
+    }
   }
 }
 </script>

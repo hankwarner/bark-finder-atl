@@ -57,7 +57,10 @@ export default {
       
       try {
         if(parkId) {
-          await ReviewsService.create(parkId, null, null, newReview)
+          let review = await ReviewsService.create(parkId, null, null, newReview)
+          newReview.id = review.data.id
+          this.$store.dispatch('setNewParkReview', newReview)
+
         } else if (restaurantId) {
           await ReviewsService.create(null, restaurantId, null, newReview)
         } else if (eventId) {
@@ -68,7 +71,7 @@ export default {
         throw this.error
       }
 
-      this.$store.dispatch('setNewReview', newReview)
+      // this.$store.dispatch('setNewReview', newReview)
 
       this.review.body = null
       this.review.rating = null

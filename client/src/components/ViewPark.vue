@@ -4,7 +4,7 @@
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
           <v-img
-            :src="$store.state.park.imageUrl"
+            :src="$store.state.parks.park.imageUrl"
             aspect-ratio="4"
             alt="dog park"
           >
@@ -12,20 +12,20 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{$store.state.park.name}}</h2>
+          <h2 class="display-3">{{$store.state.parks.park.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{$store.state.park.neighborhood}}</h3>
+          <h3 class="display-2">{{$store.state.parks.park.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{$store.state.park.address}}</h5>
+          <h5 class="headline">{{$store.state.parks.park.address}}</h5>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
           <v-rating
-            v-model="$store.state.park.rating"
+            v-model="$store.state.parks.park.rating"
             background-color="orange lighten-3"
             color="orange"
             medium
@@ -33,7 +33,7 @@
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{$store.state.park.description}}</p>
+          <p class="subheading">{{$store.state.parks.park.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -60,7 +60,7 @@
             </v-flex>
 
             <v-flex class="body-2" mt-1 d-flex xs12 md12>
-              {{review.User.username}}
+              {{review.user}}
             </v-flex>
             
             <v-flex class="body-2" mt-3 mb-5 d-flex xs12 md9 align-start>
@@ -75,7 +75,7 @@
                 large 
                 color="error"
                 @click="deleteReview(review.id)"
-                v-if="$store.state.user === review.User.username">
+                v-if="$store.state.user === review.user">
                 Delete
               </v-btn>
             </v-flex>
@@ -83,7 +83,7 @@
         </v-flex>
 
         <!-- show new review when added -->
-        <v-flex 
+        <!-- <v-flex 
           v-if="$store.state.newReview"
           d-flex 
           xs12 
@@ -118,7 +118,7 @@
               </v-btn>
             </v-flex>
           </v-layout>
-        </v-flex>
+        </v-flex> -->
 
         <v-flex d-flex xs12 md12>
           <div class="text-md-left">
@@ -164,7 +164,7 @@ export default {
 
       try {
         let park = await ParksService.show(parkId)
-        this.$store.dispatch('setPark', park.data)
+        store.dispatch('setPark', park.data)
         
       } catch(err) {
         console.log(err)
@@ -179,14 +179,14 @@ export default {
         await ReviewsService.destroy(parkId, reviewId)
 
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
     }
   },
 
   computed: {
     allReviews: () => {
-      return store.state.park.reviews
+      return store.state.parks.park.reviews
     }
   }
     

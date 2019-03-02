@@ -1,23 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import parkStore from './modules/parks'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     strict: false,
+
+    modules: {
+        parks: parkStore
+    },
+
     state: {
         token: null,
         user: null,
         userId: null,
         isUserLoggedIn: false,
-        parks: [],
-        park: null,
         restaurants: [],
         restaurant: null,
         events: [],
         event: null,
         newReview: null
     },
+
     mutations: {
         setToken(state, token) {
             state.token = token
@@ -33,12 +38,6 @@ export default new Vuex.Store({
         setUserId(state, userId) {
             state.userId = userId
         },
-        setParks(state, parks) {
-            state.parks = parks
-        },
-        setPark(state, park) {
-            state.park = park
-        },
         setRestaurants(state, restaurants) {
             state.restaurants = restaurants
         },
@@ -51,18 +50,24 @@ export default new Vuex.Store({
         setEvent(state, event) {
             state.event = event
         },
-        setNewReview(state, newReview) {
-            state.newReview = newReview
-        },
-        deleteParkReview(state, reviewId) {
-            let reviews = state.park.reviews
+        deleteRestaurantReview(state, reviewId) {
+            let reviews = state.restaurant.reviews
 
             var isDeletedReview = review => review.id === reviewId
             
             let deletedReview = reviews.findIndex(isDeletedReview)
             
             reviews.splice(deletedReview, 1)
-        }
+        },
+        deleteEventReview(state, reviewId) {
+            let reviews = state.event.reviews
+
+            var isDeletedReview = review => review.id === reviewId
+            
+            let deletedReview = reviews.findIndex(isDeletedReview)
+            
+            reviews.splice(deletedReview, 1)
+        },
     },
     actions: {
         setToken({commit}, token) {
@@ -73,12 +78,6 @@ export default new Vuex.Store({
         },
         setUserId({commit}, userId) {
             commit('setUserId', userId)
-        },
-        setParks({commit}, parks) {
-            commit('setParks', parks)
-        },
-        setPark({commit}, park) {
-            commit('setPark', park)
         },
         setRestaurants({commit}, restaurants) {
             commit('setRestaurants', restaurants)
@@ -92,11 +91,11 @@ export default new Vuex.Store({
         setEvent({commit}, event) {
             commit('setEvent', event)
         },
-        setNewReview({commit}, newReview) {
-            commit('setNewReview', newReview)
+        deleteRestaurantReview({commit}, reviewId) {
+            commit('deleteRestaurantReview', reviewId)
         },
-        deleteParkReview({commit}, reviewId) {
-            commit('deleteParkReview', reviewId)
-        },
+        deleteEventReview({commit}, reviewId) {
+            commit('deleteEventReview', reviewId)
+        }
     }
 })
