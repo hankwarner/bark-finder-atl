@@ -34,11 +34,6 @@ export default {
       review: {
         body: null,
         rating: null,
-        parkId: this.$store.state.route.params.parkId,
-        restaurantId: this.$store.state.route.params.restaurantId,
-        eventId: this.$store.state.route.params.eventId,
-        userId: this.$store.state.userId,
-        token: this.$store.state.token
       },
       error: null
     }
@@ -49,27 +44,37 @@ export default {
       let parkId = this.$store.state.route.params.parkId
       let restaurantId = this.$store.state.route.params.restaurantId
       let eventId = this.$store.state.route.params.eventId
+      let newReview = {
+        body: this.review.body,
+        rating: this.review.rating,
+        parkId: this.$store.state.route.params.parkId,
+        restaurantId: this.$store.state.route.params.restaurantId,
+        eventId: this.$store.state.route.params.eventId,
+        userId: this.$store.state.userId,
+        user: this.$store.state.user,
+        token: this.$store.state.token
+      }
       
       try {
+
         if(parkId) {
-          await ReviewsService.create(parkId, null, null, this.review)
-          this.review.body = null
-          this.review.rating = null
+          await ReviewsService.create(parkId, null, null, newReview)
 
         } else if (restaurantId) {
-          await ReviewsService.create(null, restaurantId, null, this.review)
-          this.review.body = null
-          this.review.rating = null
+          await ReviewsService.create(null, restaurantId, null, newReview)
 
         } else if (eventId) {
-          await ReviewsService.create(null, null, eventId, this.review)
-          this.review.body = null
-          this.review.rating = null
+          await ReviewsService.create(null, null, eventId, newReview)
         }
         
       } catch(err) {
         this.error = err.message.toString()
       }
+
+      this.$store.dispatch('setNewReview', newReview)
+
+      this.review.body = null
+      this.review.rating = null
     }
   }
 }

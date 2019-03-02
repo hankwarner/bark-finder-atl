@@ -4,12 +4,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    strict: true,
+    strict: false,
     state: {
         token: null,
         user: null,
         userId: null,
-        isUserLoggedIn: false
+        isUserLoggedIn: false,
+        parks: [],
+        park: null,
+        restaurants: [],
+        events: [],
+        newReview: null
     },
     mutations: {
         setToken(state, token) {
@@ -25,6 +30,18 @@ export default new Vuex.Store({
         },
         setUserId(state, userId) {
             state.userId = userId
+        },
+        setParks(state, parks) {
+            state.parks = parks
+        },
+        setPark(state, park) {
+            state.park = park
+        },
+        setRestaurants(state, restaurants) {
+            state.restaurants = restaurants
+        },
+        setNewReview(state, newReview) {
+            state.newReview = newReview
         }
     },
     actions: {
@@ -36,6 +53,21 @@ export default new Vuex.Store({
         },
         setUserId({commit}, userId) {
             commit('setUserId', userId)
-        }
+        },
+        setParks({commit}, parks) {
+            commit('setParks', parks)
+        },
+        setPark({commit}, park) {
+            commit('setPark', park)
+        },
+        setRestaurants({commit}, restaurants) {
+            commit('setRestaurants', restaurants)
+        },
+        setEvents({commit}, events) {
+            commit('setEvents', events)
+        },
+        setNewReview({commit}, newReview) {
+            commit('setNewReview', newReview)
+        },
     }
 })

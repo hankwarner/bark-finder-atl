@@ -73,17 +73,24 @@
 
 <script>
 import EventsService from '@/services/EventsService.js'
+import store from '@/store/store'
 
 export default {
   data() {
     return {
       loading: false,
-      events: [],
       error: null
     }
   },
+
   mounted() {
     this.callEvents()
+  },
+
+  computed: {
+    events: () => {
+      return store.state.events
+    }
   },
 
   methods: {
@@ -92,7 +99,7 @@ export default {
 
       try {
         let events = await EventsService.index()
-        this.events = events.data
+        this.$store.dispatch('setEvents', events.data)
         this.loading = false
         
       } catch(err) {

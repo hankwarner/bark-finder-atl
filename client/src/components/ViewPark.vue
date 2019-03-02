@@ -3,8 +3,8 @@
     <v-container fluid >
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
-          <v-img 
-            :src="park.imageUrl"
+          <v-img
+            :src="$store.state.park.imageUrl"
             aspect-ratio="4"
             alt="dog park"
           >
@@ -12,20 +12,20 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{park.name}}</h2>
+          <h2 class="display-3">{{$store.state.park.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{park.neighborhood}}</h3>
+          <h3 class="display-2">{{$store.state.park.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{park.address}}</h5>
+          <h5 class="headline">{{$store.state.park.address}}</h5>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
           <v-rating
-            v-model="park.rating"
+            v-model="$store.state.park.rating"
             background-color="orange lighten-3"
             color="orange"
             medium
@@ -33,7 +33,7 @@
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{park.description}}</p>
+          <p class="subheading">{{$store.state.park.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -47,7 +47,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 md12
-          v-for="(review) in park.reviews"
+          v-for="(review) in $store.state.park.reviews"
           v-bind:key="review.id">
           
           <v-layout row wrap align-start justify-space-between>
@@ -82,6 +82,46 @@
           </v-layout>
         </v-flex>
 
+        <!-- new review -->
+        <v-flex 
+          v-if="$store.state.newReview"
+          d-flex 
+          xs12 
+          md12
+        >
+          
+          <v-layout row wrap align-start justify-space-between>
+            
+            <v-flex class="body-2" d-flex xs5 md2>
+              <v-rating
+                small
+                v-model="$store.state.newReview.rating">
+              </v-rating>
+            </v-flex>
+
+            <v-flex class="body-2" mt-1 d-flex xs12 md12>
+              {{$store.state.newReview.user}}
+            </v-flex>
+            
+            <v-flex class="body-2" mt-3 mb-5 d-flex xs12 md9 align-start>
+              <div class="text-md-left">
+                {{$store.state.newReview.body}}
+              </div>
+            </v-flex>
+            
+            <v-flex d-flex xs1 md1>
+              <v-btn
+                flat 
+                large 
+                color="error"
+                @click="deleteReview($store.state.newReview.id)"
+                v-if="$store.state.user === $store.state.newReview.user">
+                Delete
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+
         <v-flex d-flex xs12 md12>
           <div class="text-md-left">
             <h3>Write a Review</h3>
@@ -102,6 +142,7 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   components: {
@@ -110,10 +151,6 @@ export default {
   },
   data() {
     return {
-      park: [],
-      review: {
-        id: null
-      },
       error: null
     }
   },
@@ -121,16 +158,14 @@ export default {
   mounted() {
     this.getPark()
   },
-  watch: {
-    park: "getPark"
-  },
+
   methods: {
     async getPark() {
       let parkId = this.$store.state.route.params.parkId
 
       try {
         let park = await ParksService.show(parkId)
-        this.park = park.data
+        this.$store.dispatch('setPark', park.data)
         
       } catch(err) {
         this.error = err.message.toString()
@@ -146,6 +181,17 @@ export default {
       } catch(err) {
         this.error = err.message.toString()
       }
+    }
+  },
+
+  computed: {
+    newReview: async () => {
+      //if a new review is added to, rerender the reviews object
+    //   if(store.state.newReview) {
+    //     debugger
+    //     return this.getPark()
+    //   }
+      return this.$store.state.newReview
     }
   }
     

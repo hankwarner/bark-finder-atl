@@ -22,6 +22,7 @@ import ParksService from '@/services/ParksService.js'
 import RestaurantsService from '@/services/RestaurantsService.js'
 import EventsService from '@/services/EventsService.js'
 import { debug } from 'util';
+
 export default {
   name: "GoogleMap",
   data() {

@@ -74,17 +74,24 @@
 
 <script>
 import RestaurantsService from '@/services/RestaurantsService.js'
+import store from '@/store/store'
 
 export default {
   data() {
     return {
       loading: false,
-      restaurants: [],
       error: null
     }
   },
+
   mounted() {
     this.callRestaurants()
+  },
+
+  computed: {
+    restaurants: () => {
+      return store.state.restaurants
+    }
   },
 
   methods: {
@@ -93,8 +100,8 @@ export default {
 
       try {
         let restaurants = await RestaurantsService.index()
+        this.$store.dispatch('setRestaurants', restaurants.data)
         this.loading = false
-        this.restaurants = restaurants.data
         
       } catch(err) {
         this.error = err.message.toString()
