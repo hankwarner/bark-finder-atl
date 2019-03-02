@@ -7,8 +7,7 @@ export default ({
     strict: false,
     state: {
         parks: [],
-        park: null,
-        newReview: null
+        park: null
     },
 
     mutations: {

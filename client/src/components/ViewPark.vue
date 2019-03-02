@@ -60,7 +60,7 @@
             </v-flex>
 
             <v-flex class="body-2" mt-1 d-flex xs12 md12>
-              {{review.user}}
+              {{review.User.username}}
             </v-flex>
             
             <v-flex class="body-2" mt-3 mb-5 d-flex xs12 md9 align-start>
@@ -75,7 +75,7 @@
                 large 
                 color="error"
                 @click="deleteReview(review.id)"
-                v-if="$store.state.user === review.user">
+                v-if="$store.state.user === review.User.username">
                 Delete
               </v-btn>
             </v-flex>
@@ -175,7 +175,7 @@ export default {
       let parkId = this.$store.state.route.params.parkId
       
       try {
-        this.$store.dispatch('deleteParkReview', reviewId)
+        store.dispatch('deleteParkReview', reviewId)
         await ReviewsService.destroy(parkId, reviewId)
 
       } catch(err) {

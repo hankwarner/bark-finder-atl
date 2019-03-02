@@ -26,6 +26,7 @@
 
 <script>
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   data() {
@@ -51,7 +52,7 @@ export default {
         restaurantId: this.$store.state.route.params.restaurantId,
         eventId: this.$store.state.route.params.eventId,
         userId: this.$store.state.userId,
-        user: this.$store.state.user,
+        username: this.$store.state.user,
         token: this.$store.state.token
       }
       
@@ -59,7 +60,10 @@ export default {
         if(parkId) {
           let review = await ReviewsService.create(parkId, null, null, newReview)
           newReview.id = review.data.id
-          this.$store.dispatch('setNewParkReview', newReview)
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewParkReview', newReview)
 
         } else if (restaurantId) {
           await ReviewsService.create(null, restaurantId, null, newReview)
@@ -70,8 +74,6 @@ export default {
         this.error = 'You must be logged in to do that'
         throw this.error
       }
-
-      // this.$store.dispatch('setNewReview', newReview)
 
       this.review.body = null
       this.review.rating = null
