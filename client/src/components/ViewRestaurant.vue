@@ -4,7 +4,7 @@
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
           <v-img 
-            :src="restaurant.imageUrl"
+            :src="$store.state.restaurants.restaurant.imageUrl"
             aspect-ratio="4"
             alt="restaurant"
           >
@@ -12,20 +12,20 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{restaurant.name}}</h2>
+          <h2 class="display-3">{{$store.state.restaurants.restaurant.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{restaurant.neighborhood}}</h3>
+          <h3 class="display-2">{{$store.state.restaurants.restaurant.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{restaurant.address}}</h5>
+          <h5 class="headline">{{$store.state.restaurants.restaurant.address}}</h5>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
           <v-rating
-            v-model="restaurant.rating"
+            v-model="$store.state.restaurants.restaurant.rating"
             background-color="orange lighten-3"
             color="orange"
             medium
@@ -33,7 +33,7 @@
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{restaurant.description}}</p>
+          <p class="subheading">{{$store.state.restaurants.restaurant.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -47,7 +47,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 md12
-          v-for="(review) in restaurant.reviews"
+          v-for="(review) in allReviews"
           v-bind:key="review.id">
           
           <v-layout row wrap align-start justify-space-between>
@@ -102,19 +102,16 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import RestaurantsService from '@/services/RestaurantsService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   components: {
     'review': Review,
     'google-map': GoogleMap
   },
+
   data() {
     return {
-      loading: false,
-      restaurant: [],
-      review: {
-        id: null
-      },
       error: null
     }
   },
@@ -122,9 +119,7 @@ export default {
   mounted() {
     this.getRestaurant()
   },
-  watch: {
-    restaurant: "getRestaurant"
-  },
+
   methods: {
     async getRestaurant() {
       this.loading = true
@@ -132,10 +127,10 @@ export default {
       
       try {
         let restaurant = await RestaurantsService.show(restaurantId)
-        this.loading = false
-        this.restaurant = restaurant.data
+        store.dispatch('setRestaurant', restaurant.data)
+
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
     },
   
@@ -143,11 +138,18 @@ export default {
       let restaurantId = this.$store.state.route.params.restaurantId
       
       try {
+        this.$store.dispatch('deleteRestaurantReview', reviewId)
         await ReviewsService.destroy(restaurantId, reviewId)
 
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
+    }
+  },
+
+  computed: {
+    allReviews: () => {
+      return store.state.restaurants.restaurant.reviews
     }
   }
     

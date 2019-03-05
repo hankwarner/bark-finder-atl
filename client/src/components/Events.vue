@@ -54,7 +54,7 @@
             <div class="font-weight-light title mb-2">
               {{event.neighborhood}}
               <v-rating
-                :value="event.rating"
+                v-model="event.rating"
                 color="amber"
                 dense
                 half-increments
@@ -73,18 +73,21 @@
 
 <script>
 import EventsService from '@/services/EventsService.js'
+import store from '@/store/store'
 
 export default {
   data() {
     return {
       loading: false,
-      events: [],
       error: null
     }
   },
+
   mounted() {
     this.callEvents()
   },
+
+
 
   methods: {
     async callEvents() {
@@ -92,7 +95,7 @@ export default {
 
       try {
         let events = await EventsService.index()
-        this.events = events.data
+        store.dispatch('setEvents', events.data)
         this.loading = false
         
       } catch(err) {
@@ -103,7 +106,12 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     }
+  },
 
+  computed: {
+    events: () => {
+      return store.state.events.events
+    }
   }
 }
 </script>

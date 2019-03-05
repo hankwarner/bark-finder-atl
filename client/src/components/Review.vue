@@ -26,6 +26,7 @@
 
 <script>
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   data() {
@@ -34,11 +35,6 @@ export default {
       review: {
         body: null,
         rating: null,
-        parkId: this.$store.state.route.params.parkId,
-        restaurantId: this.$store.state.route.params.restaurantId,
-        eventId: this.$store.state.route.params.eventId,
-        userId: this.$store.state.userId,
-        token: this.$store.state.token
       },
       error: null
     }
@@ -49,27 +45,49 @@ export default {
       let parkId = this.$store.state.route.params.parkId
       let restaurantId = this.$store.state.route.params.restaurantId
       let eventId = this.$store.state.route.params.eventId
+      let newReview = {
+        body: this.review.body,
+        rating: this.review.rating,
+        parkId: this.$store.state.route.params.parkId,
+        restaurantId: this.$store.state.route.params.restaurantId,
+        eventId: this.$store.state.route.params.eventId,
+        userId: this.$store.state.userId,
+        username: this.$store.state.user,
+        token: this.$store.state.token
+      }
       
       try {
         if(parkId) {
-          await ReviewsService.create(parkId, null, null, this.review)
-          this.review.body = null
-          this.review.rating = null
+          let review = await ReviewsService.create(parkId, null, null, newReview)
+          newReview.id = review.data.id
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewParkReview', newReview)
 
         } else if (restaurantId) {
-          await ReviewsService.create(null, restaurantId, null, this.review)
-          this.review.body = null
-          this.review.rating = null
+          let review = await ReviewsService.create(null, restaurantId, null, newReview)
+          newReview.id = review.data.id
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewRestaurantReview', newReview)
 
         } else if (eventId) {
-          await ReviewsService.create(null, null, eventId, this.review)
-          this.review.body = null
-          this.review.rating = null
+          let review = await ReviewsService.create(null, null, eventId, newReview)
+          newReview.id = review.data.id
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewEventReview', newReview)
         }
-        
       } catch(err) {
-        this.error = err.message.toString()
+        this.error = 'You must be logged in to do that'
+        throw this.error
       }
+
+      this.review.body = null
+      this.review.rating = null
     }
   }
 }

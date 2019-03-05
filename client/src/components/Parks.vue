@@ -44,9 +44,9 @@
           >
             <h3 class="display-1 font-weight-light orange--text mb-2 pointer"
               @click="navigateTo({
-                name: 'restaurant',
+                name: 'park',
                 params: {
-                  restaurantId: restaurant.id
+                  parkId: park.id
                 }
               })">
               {{park.name}}
@@ -54,7 +54,7 @@
             <div class="font-weight-light title mb-2">
               {{park.neighborhood}}
               <v-rating
-                :value="park.rating"
+                v-model="park.rating"
                 color="amber"
                 dense
                 half-increments
@@ -73,15 +73,16 @@
 
 <script>
 import ParksService from '@/services/ParksService.js'
+import store from '@/store/store'
 
 export default {
   data() {
     return {
       loading: false,
-      parks: [],
       error: null
     }
   },
+
   mounted() {
     this.callParks()
   },
@@ -92,7 +93,7 @@ export default {
 
       try {
         let parks = await ParksService.index()
-        this.parks = parks.data
+        store.dispatch('setParks', parks.data)
         this.loading = false
         
       } catch(err) {
@@ -103,7 +104,12 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     }
+  },
 
+  computed: {
+    parks: () => {
+      return store.state.parks.parks
+    }
   }
 }
 </script>

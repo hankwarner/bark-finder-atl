@@ -16,7 +16,7 @@ sync(store, router)
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyBPrwzMzUqoKSUF4y1yvUBksfVlJy4k2-s',
+    // key: 'AIzaSyBPrwzMzUqoKSUF4y1yvUBksfVlJy4k2-s',
     libraries: 'places',
   }
 }),

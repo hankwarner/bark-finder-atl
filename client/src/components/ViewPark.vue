@@ -3,8 +3,8 @@
     <v-container fluid >
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
-          <v-img 
-            :src="park.imageUrl"
+          <v-img
+            :src="$store.state.parks.park.imageUrl"
             aspect-ratio="4"
             alt="dog park"
           >
@@ -12,20 +12,20 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{park.name}}</h2>
+          <h2 class="display-3">{{$store.state.parks.park.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{park.neighborhood}}</h3>
+          <h3 class="display-2">{{$store.state.parks.park.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{park.address}}</h5>
+          <h5 class="headline">{{$store.state.parks.park.address}}</h5>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
           <v-rating
-            v-model="park.rating"
+            v-model="$store.state.parks.park.rating"
             background-color="orange lighten-3"
             color="orange"
             medium
@@ -33,7 +33,7 @@
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{park.description}}</p>
+          <p class="subheading">{{$store.state.parks.park.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -47,7 +47,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 md12
-          v-for="(review) in park.reviews"
+          v-for="(review) in allReviews"
           v-bind:key="review.id">
           
           <v-layout row wrap align-start justify-space-between>
@@ -102,18 +102,16 @@ import Review from '@/components/Review.vue'
 import GoogleMap from '@/components/GoogleMap.vue'
 import ParksService from '@/services/ParksService.js'
 import ReviewsService from '@/services/ReviewsService.js'
+import store from '@/store/store'
 
 export default {
   components: {
     'review': Review,
     'google-map': GoogleMap
   },
+
   data() {
     return {
-      park: [],
-      review: {
-        id: null
-      },
       error: null
     }
   },
@@ -121,19 +119,17 @@ export default {
   mounted() {
     this.getPark()
   },
-  watch: {
-    park: "getPark"
-  },
+
   methods: {
     async getPark() {
       let parkId = this.$store.state.route.params.parkId
 
       try {
         let park = await ParksService.show(parkId)
-        this.park = park.data
+        store.dispatch('setPark', park.data)
         
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
     },
   
@@ -141,11 +137,18 @@ export default {
       let parkId = this.$store.state.route.params.parkId
       
       try {
+        store.dispatch('deleteParkReview', reviewId)
         await ReviewsService.destroy(parkId, reviewId)
 
       } catch(err) {
-        this.error = err.message.toString()
+        console.log(err)
       }
+    }
+  },
+
+  computed: {
+    allReviews: () => {
+      return store.state.parks.park.reviews
     }
   }
     
