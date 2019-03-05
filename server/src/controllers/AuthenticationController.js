@@ -47,6 +47,7 @@ module.exports = {
         passport.authenticate('login', (err, user, info) => {
             if(err) {
                 console.log(err)
+                res.status(400).send(err.message)
             }
             if(info !== undefined) {
                 console.log(info.message)
@@ -57,7 +58,8 @@ module.exports = {
                         where: {
                             username: user.username
                         },
-                    }).then(user => {
+                    })
+                    .then(user => {
                         const token = jwt.sign({ id: user.username }, jwtSecret.secret)
                         res.status(200).send({
                             auth: true,
@@ -65,6 +67,9 @@ module.exports = {
                             message: 'Login successful',
                             user: user
                         })
+                    })
+                    .catch((err) => {
+                        res.status(400).send(err.message)
                     })
                 })
             }

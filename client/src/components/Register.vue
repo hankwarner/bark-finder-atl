@@ -72,6 +72,8 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import store from '@/store/store'
+
 export default {
   data () {
     return {
@@ -86,6 +88,7 @@ export default {
   methods: {
     async register() {
       this.loading = true
+
       try {
         const response = await AuthenticationService.register({
           email: this.email,
@@ -94,17 +97,20 @@ export default {
           passwordConfirmation: this.passwordConfirmation,
         })
         
-        this.$store.dispatch('setToken', localStorage.token)
-        this.$store.dispatch('setUser', localStorage.user)
-        this.$store.dispatch('setUserId', localStorage.userId)
+        store.dispatch('setToken', localStorage.token)
+        store.dispatch('setUser', localStorage.user)
+        store.dispatch('setUserId', localStorage.userId)
+
         this.loading = false
         this.$router.push({
           name: 'Landing'
         })
+
       } catch(err) {
-        this.error = err.message.toString()
+        this.loading = false
+        this.error = 'Bad username, email or password.'
+        throw this.error
       }
-      
     }
   }
 }
