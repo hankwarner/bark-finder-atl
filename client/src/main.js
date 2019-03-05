@@ -7,9 +7,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 Vue.config.productionTip = false
 
