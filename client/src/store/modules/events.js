@@ -11,7 +11,7 @@ export default ({
     },
 
     mutations: {
-        setEvents(state, events) {
+        setEvents( state, events ) {
             state.events = events
         },
         setEvent(state, event) {
