@@ -5,4 +5,3 @@ node_modules/
 ./newrelic_agent.log
 newrelic_agent.log
 .env
-client/config/prod.env.js
