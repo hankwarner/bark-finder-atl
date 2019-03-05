@@ -11,11 +11,11 @@
           :lazy-src="`https://picsum.photos/10/6?image=15`"
           src="../../static/images/beagle.jpg">
           <h2
-            class="display-3 font-weight-bold text-uppercase grey--text text--darken-4">
+            class="display-3 font-weight-bold text-uppercase grey--text text--lighten-3">
             Welcome to Bark Finder Atl
           </h2>
           <h4
-            class="display-1 font-weight-thin grey--text text--darken-4">
+            class="display-1 font-weight-thin grey--text text--lighten-3">
             Where to go in ATL with your pup
           </h4>
         </v-img>
