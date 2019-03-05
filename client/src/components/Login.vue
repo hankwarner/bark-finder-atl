@@ -27,6 +27,7 @@
               solo
             ></v-text-field>
           </v-flex>
+          <div class="error" v-html="error" />
           <v-flex d-flex xs6 md5>
             <v-btn
               @click="login"
@@ -50,6 +51,7 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import store from '@/store/store'
 
 export default {
   data () {
@@ -60,18 +62,20 @@ export default {
       error: null
     }
   },
+
   methods: {
     async login() {
       this.loading = true
+
       try {
         const response = await AuthenticationService.login({
           username: this.username,
           password: this.password
         })
         
-        this.$store.dispatch('setToken', localStorage.token)
-        this.$store.dispatch('setUser', localStorage.user)
-        this.$store.dispatch('setUserId', localStorage.userId)
+        store.dispatch('setToken', localStorage.token)
+        store.dispatch('setUser', localStorage.user)
+        store.dispatch('setUserId', localStorage.userId)
         
         this.loading = false
         this.$router.push({
@@ -79,9 +83,10 @@ export default {
         })
         
       } catch(err) {
-        this.error = err.message.toString()
+        this.loading = false
+        this.error = 'Username and password combination does not exist'
+        throw this.error
       }
-      
     }
   }
 }

@@ -63,7 +63,7 @@ module.exports = {
           })
           .catch((err) => {
             console.log(err)
-            done()
+            done(err)
           })
         } 
       ),

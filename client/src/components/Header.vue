@@ -25,19 +25,19 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn 
-                v-if="!$store.state.isUserLoggedIn"
+                v-if="!$store.state.users.isUserLoggedIn"
                 flat
                 @click="navigateTo({name: 'login'})">
                 Login
             </v-btn>
             <v-btn 
-                v-if="!$store.state.isUserLoggedIn"
+                v-if="!$store.state.users.isUserLoggedIn"
                 flat
                 @click="navigateTo({name: 'register'})">
                 Sign Up
             </v-btn>
             <v-btn 
-                v-if="$store.state.isUserLoggedIn"
+                v-if="$store.state.users.isUserLoggedIn"
                 flat
                 @click="logout()">
                 Logout
@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import store from '@/store/store'
+
 export default {
     data: () => ({
         unregisteredUserMenuItems: [
@@ -103,10 +105,11 @@ export default {
         navigateTo(route) {
             this.$router.push(route)
         },
+        
         logout() {
-            this.$store.dispatch('setToken', null)
-            this.$store.dispatch('setUser', null)
-            this.$store.dispatch('setUserId', null)
+            store.dispatch('setToken', null)
+            store.dispatch('setUser', null)
+            store.dispatch('setUserId', null)
             //Redirect to homepage
             this.$router.push({
                 name: 'Landing'

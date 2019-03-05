@@ -14,7 +14,6 @@ export default {
         })
     },
     
-    //pass headers (as an object)
     async login(credentials) {
         try {
             let res = await Api().post('login', credentials)
@@ -34,6 +33,7 @@ export default {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             localStorage.removeItem('userId')
+            res.send(err)
         }
     },
 
