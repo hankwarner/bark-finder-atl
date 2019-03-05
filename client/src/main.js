@@ -7,6 +7,9 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 Vue.config.productionTip = false
 
@@ -16,7 +19,7 @@ sync(store, router)
 
 Vue.use(VueGoogleMaps, {
   load: {
-    // key: 'AIzaSyBPrwzMzUqoKSUF4y1yvUBksfVlJy4k2-s',
+    key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
     libraries: 'places',
   }
 }),
