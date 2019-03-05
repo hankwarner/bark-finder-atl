@@ -31,7 +31,9 @@
             medium
           ></v-rating>
         </v-flex>
-
+        <v-flex d-flex xs12 md7>
+          <hr>
+        </v-flex>
         <v-flex class="description-map-block" d-flex xs12 md6>
           <p class="subheading">{{$store.state.restaurants.restaurant.description}}</p>
         </v-flex>
@@ -78,6 +80,9 @@
                 v-if="$store.state.user === review.User.username">
                 Delete
               </v-btn>
+            </v-flex>
+            <v-flex d-flex xs1 md4>
+              <hr>
             </v-flex>
           </v-layout>
         </v-flex>
