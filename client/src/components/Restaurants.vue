@@ -1,6 +1,5 @@
 <template>
-    
-  <v-container fluid>
+<v-container fluid>
   <v-layout row wrap justify-space-around>
     <v-flex 
       d-flex 
@@ -55,7 +54,7 @@
             <div class="font-weight-light title mb-2">
               {{restaurant.neighborhood}}
               <v-rating
-                :value="restaurant.rating"
+                v-model="restaurant.rating"
                 color="amber"
                 dense
                 half-increments
@@ -69,7 +68,6 @@
     </v-flex>
   </v-layout>
 </v-container>
-    
 </template>
 
 <script>
@@ -88,19 +86,13 @@ export default {
     this.callRestaurants()
   },
 
-  computed: {
-    restaurants: () => {
-      return store.state.restaurants
-    }
-  },
-
   methods: {
     async callRestaurants() {
         this.loading = true
 
       try {
         let restaurants = await RestaurantsService.index()
-        this.$store.dispatch('setRestaurants', restaurants.data)
+        store.dispatch('setRestaurants', restaurants.data)
         this.loading = false
         
       } catch(err) {
@@ -111,7 +103,12 @@ export default {
     navigateTo(route) {
       this.$router.push(route)
     }
+  },
 
+  computed: {
+    restaurants: () => {
+      return store.state.restaurants.restaurants
+    }
   }
 }
 </script>

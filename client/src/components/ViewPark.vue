@@ -82,44 +82,6 @@
           </v-layout>
         </v-flex>
 
-        <!-- show new review when added -->
-        <!-- <v-flex 
-          v-if="$store.state.newReview"
-          d-flex 
-          xs12 
-          md12
-        >
-          <v-layout row wrap align-start justify-space-between>
-            <v-flex class="body-2" d-flex xs5 md2>
-              <v-rating
-                small
-                v-model="$store.state.newReview.rating">
-              </v-rating>
-            </v-flex>
-
-            <v-flex class="body-2" mt-1 d-flex xs12 md12>
-              {{$store.state.newReview.user}}
-            </v-flex>
-            
-            <v-flex class="body-2" mt-3 mb-5 d-flex xs12 md9 align-start>
-              <div class="text-md-left">
-                {{$store.state.newReview.body}}
-              </div>
-            </v-flex>
-            
-            <v-flex d-flex xs1 md1>
-              <v-btn
-                flat 
-                large 
-                color="error"
-                @click="deleteReview($store.state.newReview.id)"
-                v-if="$store.state.user === $store.state.newReview.user">
-                Delete
-              </v-btn>
-            </v-flex>
-          </v-layout>
-        </v-flex> -->
-
         <v-flex d-flex xs12 md12>
           <div class="text-md-left">
             <h3>Write a Review</h3>

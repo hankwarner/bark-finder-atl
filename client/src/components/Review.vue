@@ -66,9 +66,20 @@ export default {
           store.dispatch('setNewParkReview', newReview)
 
         } else if (restaurantId) {
-          await ReviewsService.create(null, restaurantId, null, newReview)
+          let review = await ReviewsService.create(null, restaurantId, null, newReview)
+          newReview.id = review.data.id
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewRestaurantReview', newReview)
+
         } else if (eventId) {
-          await ReviewsService.create(null, null, eventId, newReview)
+          let review = await ReviewsService.create(null, null, eventId, newReview)
+          newReview.id = review.data.id
+          newReview.User = {
+            username: this.$store.state.user
+          }
+          store.dispatch('setNewEventReview', newReview)
         }
       } catch(err) {
         this.error = 'You must be logged in to do that'
