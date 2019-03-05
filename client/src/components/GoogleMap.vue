@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       center: {
-          lat: 45.5017,
-          lng: 73.5673
+        lat: 45.5017,
+        lng: 73.5673
       },
       markers: [],
       currentPlace: null
