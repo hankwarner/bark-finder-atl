@@ -7,6 +7,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import prodEnv from '../config/prod.env'
 
 Vue.config.productionTip = false
 
@@ -24,7 +25,7 @@ if(process.env.NODE_ENV == 'development') {
 } else if (process.env.NODE_ENV == 'production') {
   Vue.use(VueGoogleMaps, {
     load: {
-      key: VUE_APP_GOOGLE_MAPS_API_KEY,
+      key: prodEnv.VUE_APP_GOOGLE_MAPS_API_KEY,
       libraries: 'places',
     }
   })
