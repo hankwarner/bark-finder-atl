@@ -14,12 +14,21 @@ Vue.use(Vuetify)
 
 sync(store, router)
 
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
-    libraries: 'places',
-  }
-}),
+if(process.env.NODE_ENV == 'development') {
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+      libraries: 'places',
+    }
+  })
+} else if (process.env.NODE_ENV == 'production') {
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: VUE_APP_GOOGLE_MAPS_API_KEY,
+      libraries: 'places',
+    }
+  })
+}
 
 /* eslint-disable no-new */
 new Vue({
