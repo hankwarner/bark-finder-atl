@@ -8,9 +8,6 @@ import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
-console.log(process.env.VUE_APP_GOOGLE_MAPS_API_KEY)
-debugger
-
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
