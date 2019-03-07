@@ -18,7 +18,7 @@ sync(store, router)
 if(process.env.NODE_ENV == 'development') {
   Vue.use(VueGoogleMaps, {
     load: {
-      key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+      // key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
       libraries: 'places',
     }
   })

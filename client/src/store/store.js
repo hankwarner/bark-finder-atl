@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import parkStore from './modules/parks'
 import restaurantStore from './modules/restaurants'
 import eventStore from './modules/events'
@@ -15,6 +16,8 @@ export default new Vuex.Store({
         restaurants: restaurantStore,
         events: eventStore,
         users: userStore
-    }
+    },
+
+    plugins: [createPersistedState()]
 
 })
