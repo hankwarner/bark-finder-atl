@@ -51,9 +51,9 @@ export default {
         parkId: this.$store.state.route.params.parkId,
         restaurantId: this.$store.state.route.params.restaurantId,
         eventId: this.$store.state.route.params.eventId,
-        userId: this.$store.state.userId,
-        username: this.$store.state.user,
-        token: this.$store.state.token
+        userId: this.$store.state.users.userId,
+        username: this.$store.state.users.user,
+        token: this.$store.state.users.token
       }
       
       try {
