@@ -2,7 +2,6 @@ import Api from '@/services/Api'
 
 export default {
     create(parkId, restaurantId, eventId, review) {
-        debugger
         if(parkId) {
             return Api().post(`parks/${parkId}/review/create`, review)
 

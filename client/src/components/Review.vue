@@ -61,7 +61,7 @@ export default {
           let review = await ReviewsService.create(parkId, null, null, newReview)
           newReview.id = review.data.id
           newReview.User = {
-            username: this.$store.state.user
+            username: this.$store.state.users.user
           }
           store.dispatch('setNewParkReview', newReview)
 
@@ -69,7 +69,7 @@ export default {
           let review = await ReviewsService.create(null, restaurantId, null, newReview)
           newReview.id = review.data.id
           newReview.User = {
-            username: this.$store.state.user
+            username: this.$store.state.users.user
           }
           store.dispatch('setNewRestaurantReview', newReview)
 
@@ -77,7 +77,7 @@ export default {
           let review = await ReviewsService.create(null, null, eventId, newReview)
           newReview.id = review.data.id
           newReview.User = {
-            username: this.$store.state.user
+            username: this.$store.state.users.user
           }
           store.dispatch('setNewEventReview', newReview)
         }
