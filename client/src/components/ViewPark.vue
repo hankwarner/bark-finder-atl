@@ -77,7 +77,7 @@
                 large 
                 color="error"
                 @click="deleteReview(review.id)"
-                v-if="$store.state.user === review.User.username">
+                v-if="$store.state.users.user === review.User.username">
                 Delete
               </v-btn>
             </v-flex>
