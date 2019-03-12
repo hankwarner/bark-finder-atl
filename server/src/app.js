@@ -10,7 +10,6 @@ const config = require('./config/config')
 
 
 const app = express()
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
