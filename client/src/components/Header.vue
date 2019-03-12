@@ -52,7 +52,7 @@
             >
               <v-toolbar-side-icon></v-toolbar-side-icon>
             </v-btn>
-            <v-list v-if="!$store.state.isUserLoggedIn">
+            <v-list v-if="!$store.state.users.isUserLoggedIn">
                 <v-list-tile
                     v-for="(menuItem, i) in unregisteredUserMenuItems"
                     :key="i"
