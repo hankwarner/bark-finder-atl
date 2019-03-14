@@ -22,10 +22,13 @@ To install on your local machine
 
 7. Navigate to `localhost:8080` in your favorite browser
 
-### Testing
-Unit tests are built with Jasmine and can be found in the `server/spec` folder.
 
-From the root directoy, `cd server` and run `npm test`
+### Testing
+Unit tests can be found in the `server/spec` folder and `client/test/unit`.
+
+To run server-side unit tests `cd server` from the root directoy and run `npm test`
+
+To run client-side unit tests `cd client` from the root directoy and run `npm test`
 
 
 ## User Registration
