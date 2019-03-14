@@ -8,7 +8,7 @@ This site is hosted on Netlify and can be found [here](https://barkfinderatl.net
 
 To install on your local machine
 
-1. `git clone` the master branch
+1. `git clone` the master branch, `cd server` and `npm install` the server-side dependencies, then `cd ../client` and `npm install` the client-side dependancies.
 
 2. Install [Postgres](https://www.postgresql.org/download/ "Postgres download") and fire up the server using the command `pg_ctl -D C:/PostgreSQL/data/pg10 start` in your terminal (if using Windows)
 
