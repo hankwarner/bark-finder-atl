@@ -4,7 +4,7 @@
       <v-layout row wrap justify-space-around>
         <v-flex d-flex xs12 md12>
           <v-img
-            :src="$store.state.parks.park.imageUrl"
+            :src="park.imageUrl"
             aspect-ratio="4"
             alt="dog park"
           >
@@ -12,20 +12,20 @@
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h2 class="display-3">{{$store.state.parks.park.name}}</h2>
+          <h2 class="display-3">{{park.name}}</h2>
         </v-flex>
         
         <v-flex d-flex xs12 md12>
-          <h3 class="display-2">{{$store.state.parks.park.neighborhood}}</h3>
+          <h3 class="display-2">{{park.neighborhood}}</h3>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
-          <h5 class="headline">{{$store.state.parks.park.address}}</h5>
+          <h5 class="headline">{{park.address}}</h5>
         </v-flex>
 
         <v-flex d-flex xs12 md12>
           <v-rating
-            v-model="$store.state.parks.park.rating"
+            v-model="park.rating"
             background-color="orange lighten-3"
             color="orange"
             medium
@@ -35,7 +35,7 @@
           <hr>
         </v-flex>
         <v-flex class="description-map-block" d-flex xs12 md6>
-          <p class="subheading">{{$store.state.parks.park.description}}</p>
+          <p class="subheading">{{park.description}}</p>
         </v-flex>
 
         <v-flex class="description-map-block" d-flex xs12 md4>
@@ -77,7 +77,7 @@
                 large 
                 color="error"
                 @click="deleteReview(review.id)"
-                v-if="$store.state.users.user === review.User.username">
+                v-if="currentUser === review.User.username">
                 Delete
               </v-btn>
             </v-flex>
@@ -152,9 +152,18 @@ export default {
   },
 
   computed: {
+    park: () => {
+      return store.state.parks.park
+    },
+    
     allReviews: () => {
       return store.state.parks.park.reviews
+    },
+
+    currentUser: () => {
+      return store.state.users.user
     }
+    
   }
     
 }
