@@ -24,7 +24,7 @@ To install on your local machine
 
 
 ### Testing
-Unit tests can be found in the `server/spec` folder and `client/test/unit`.
+Unit tests can be found in the `server/spec/unit` folder and `client/test/unit`.
 
 To run server-side unit tests `cd server` from the root directoy and run `npm test`
 
