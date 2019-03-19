@@ -37,13 +37,21 @@
           </v-flex>
         </v-layout>
       </form>
-      <div 
-        v-if="loading">
+      <div v-if="loading">
         <v-progress-circular
           indeterminate
           color="primary"
         ></v-progress-circular>
       </div>
+      <v-flex xs12 md12>
+        <v-btn 
+          outline 
+          color="indigo"
+          @click="navigateTo({
+            name: 'resetPassword'
+          })"
+        >Forgot your password?</v-btn>
+      </v-flex>
     </v-flex>
   </v-layout>
 </v-container>
@@ -87,6 +95,10 @@ export default {
         this.error = 'Username and password combination does not exist'
         throw this.error
       }
+    },
+
+    navigateTo(route) {
+      this.$router.push(route)
     }
   }
 }

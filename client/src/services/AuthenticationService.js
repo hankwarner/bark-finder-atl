@@ -37,6 +37,16 @@ export default {
         }
     },
 
+    async reset(email) {
+        try {
+            let response = await Api().post('send_reset_email', email)        
+            
+        } catch (err) {
+            console.log(err)
+            res.send(err)
+        }
+    },
+
     logout(credentials) {
         Api().post('logout', credentials)
     }

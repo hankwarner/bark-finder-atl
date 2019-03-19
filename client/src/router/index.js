@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Landing from '@/components/Landing'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
+import ResetPassword from '@/components/ResetPassword'
 import Parks from '@/components/Parks'
 import ViewPark from '@/components/ViewPark'
 import Review from '@/components/Review'
@@ -29,6 +30,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/reset_password',
+      name: 'resetPassword',
+      component: ResetPassword
     },
     {
       path: '/parks',

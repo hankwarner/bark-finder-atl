@@ -3,6 +3,7 @@ const passport = require("passport")
 const User = require('../db/models').User
 const jwtSecret = require('../config/jwtConfig')
 const jwt = require('jsonwebtoken')
+const sgMail = require('@sendgrid/mail')
 
 module.exports = {
     register(req, res) {
@@ -74,5 +75,25 @@ module.exports = {
                 })
             }
         })(req, res, next)
+    },
+
+    sendResetPasswordEmail(req, res, next) {
+        //find user email in db
+        
+        const sgMail = require('@sendgrid/mail')
+
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        
+        //send a token via the email
+        const msg = {
+            to: req.body.email,
+            from: 'no-reply@barkfinderatl.com',
+            subject: 'Password Reset Request',
+            text: 'You have requested a password reset for your Bark Finder ATL account. Please follow this link to reset your password: https://barkfinderatl.netlify.com/#/reset_password',
+            html: 'You have requested a password reset for your Bark Finder ATL account. Please follow <a href="https://barkfinderatl.netlify.com/#/reset_password">this link</a> to reset your password.'
+        }
+        sgMail.send(msg)
+
+        res.status(400).send('Your password reset request has been submitted. Please check your email for next steps.')
     }
 }
