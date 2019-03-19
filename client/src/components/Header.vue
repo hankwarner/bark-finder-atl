@@ -25,19 +25,19 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
             <v-btn 
-                v-if="!$store.state.users.isUserLoggedIn"
+                v-if="!isUserLoggedIn"
                 flat
                 @click="navigateTo({name: 'login'})">
                 Login
             </v-btn>
             <v-btn 
-                v-if="!$store.state.users.isUserLoggedIn"
+                v-if="!isUserLoggedIn"
                 flat
                 @click="navigateTo({name: 'register'})">
                 Sign Up
             </v-btn>
             <v-btn 
-                v-if="$store.state.users.isUserLoggedIn"
+                v-if="isUserLoggedIn"
                 flat
                 @click="logout()">
                 Logout
@@ -46,13 +46,15 @@
 
         <!-- nav drawer for mobile -->
         <v-menu class="hidden-md-and-up" bottom left>
-            <v-btn
-              slot="activator"
-              icon
-            >
-              <v-toolbar-side-icon></v-toolbar-side-icon>
-            </v-btn>
-            <v-list v-if="!$store.state.users.isUserLoggedIn">
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    icon
+                    >
+                    <v-toolbar-side-icon></v-toolbar-side-icon>
+                </v-btn>
+            </template>
+            <v-list v-if="!isUserLoggedIn">
                 <v-list-tile
                     v-for="(menuItem, i) in unregisteredUserMenuItems"
                     :key="i"
@@ -72,6 +74,11 @@
                 >
                     <v-list-tile-title>
                         {{menuItem.title}}
+                    </v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="logout()">
+                    <v-list-tile-title>
+                        Logout
                     </v-list-tile-title>
                 </v-list-tile>
             </v-list>
@@ -96,8 +103,7 @@ export default {
         registeredUserMenuItems: [
             { title: 'Parks', link: 'parks' },
             { title: 'Restaurants', link: 'restaurants' },
-            { title: 'Events', link: 'events' },
-            { title: 'View Profile', link: 'profile' }
+            { title: 'Events', link: 'events' }
         ]
     }),
     
@@ -114,6 +120,12 @@ export default {
             this.$router.push({
                 name: 'Landing'
             })
+        }
+    },
+
+    computed: {
+        isUserLoggedIn: () => {
+            return store.state.users.isUserLoggedIn
         }
     }
   
