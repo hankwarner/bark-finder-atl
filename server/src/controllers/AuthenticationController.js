@@ -25,7 +25,7 @@ module.exports = {
                             },
                         })
                         .then(user => {
-                            const token = jwt.sign({ id: user.username }, jwtSecret.secret)
+                            var token = jwt.sign({ id: user.username }, jwtSecret.secret)
                             res.status(200).send({
                                 auth: true,
                                 token: token,
@@ -77,23 +77,79 @@ module.exports = {
         })(req, res, next)
     },
 
-    sendResetPasswordEmail(req, res, next) {
-        //find user email in db
-        
-        const sgMail = require('@sendgrid/mail')
-
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        
-        //send a token via the email
-        const msg = {
-            to: req.body.email,
-            from: 'no-reply@barkfinderatl.com',
-            subject: 'Password Reset Request',
-            text: 'You have requested a password reset for your Bark Finder ATL account. Please follow this link to reset your password: https://barkfinderatl.netlify.com/#/reset_password',
-            html: 'You have requested a password reset for your Bark Finder ATL account. Please follow <a href="https://barkfinderatl.netlify.com/#/reset_password">this link</a> to reset your password.'
+    async sendResetPasswordEmail(req, res) {
+        const userEmail = req.body.email;
+        var base;
+        const getURLBase = () => {
+            if(process.env.NODE_ENV === 'development') {
+                base = 'http://localhost:8080/#/reset_password';
+            } else {
+                base = 'https://barkfinderatl.netlify.com/#/reset_password';
+            }
         }
-        sgMail.send(msg)
+        try {
+            let user = await User.findOne({
+                where: {
+                    email: userEmail
+                }
+            })
 
-        res.status(400).send('Your password reset request has been submitted. Please check your email for next steps.')
+            if(!user) return res.status(403).send('Email does not match a record in our system');
+
+            var secret = user.password + user.createdAt;
+            var token = jwt.sign({ id: user.id }, secret);
+
+            const sgMail = require('@sendgrid/mail');
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            getURLBase();
+            const msg = {
+                to: userEmail,
+                from: 'no-reply@barkfinderatl.com',
+                subject: 'Password Reset Request',
+                text: 'You have requested a password reset for your Bark Finder ATL account. Please follow this link to reset your password: https://barkfinderatl.netlify.com/#/reset_password',
+                html: `You have requested a password reset for your Bark Finder ATL account. Please follow <a href="${base}/${user.id}/${token}">this link</a> to reset your password.`
+            };
+            sgMail.send(msg);
+            return res.status(200).send('Your password reset request has been submitted. Please check your email for next steps.');
+        } catch (err) {
+            console.log(err);
+            return res.status(400).send(err);
+        }
+    },
+
+    async getUser(req, res) {
+        const userId = req.params.id;
+        try {
+            const user = await authenticationQueries.getUserById(userId, (err, user) => {
+                return res.status(200).send(user);
+            })
+        } catch (err) {
+            console.log(err);
+            return res.status(400).send(err);
+        }
+    },
+
+    async resetPassword(req, res) {
+        let userIdAndNewPassword = {
+            userId: req.params.userId,
+            token: req.params.token,
+            password: req.body.password
+        }
+        
+        try {
+            //reset the users password here in queries
+            var user = await authenticationQueries.resetPassword(userIdAndNewPassword, (err, user) => {
+                // if (err) {
+                //     console.log(err)
+                //     res.status(400).send(err.message)
+                // } else {
+                    return res.status(200).send(user.id)
+                // }
+            })
+        } catch (err) {
+            console.log(err);
+            return res.status(400).send(err);
+        }
+
     }
 }

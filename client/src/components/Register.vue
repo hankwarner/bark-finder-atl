@@ -48,7 +48,6 @@
               solo
             ></v-text-field>
           </v-flex>
-          <div class="error" v-html="error" />
           <v-flex d-flex xs6 md5>
             <v-btn
               @click="register"
@@ -56,6 +55,13 @@
               Register
             </v-btn>
           </v-flex>
+          <v-alert
+            v-if="this.error"
+            :value="true"
+            type="error"
+          >
+            {{error}}
+          </v-alert>
         </v-layout>
       </form>
       <div 

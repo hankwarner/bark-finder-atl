@@ -37,13 +37,34 @@ export default {
         }
     },
 
-    async reset(email) {
+    async sendResetPasswordEmail(email) {
         try {
             let response = await Api().post('send_reset_email', email)        
-            
+
         } catch (err) {
             console.log(err)
-            res.send(err)
+            return res.send(err)
+        }
+    },
+
+    async getUser(userId) {
+        try {
+            var user = await Api().get(`get_user/${userId}`);
+            return user;
+
+        } catch (err) {
+            console.log(err);
+            return res.send(err);
+        }
+    },
+
+    async resetPassword(credentials) {
+        try {
+            var response = await Api().post('reset_password', credentials)        
+
+        } catch (err) {
+            console.log(err)
+            return res.send(err)
         }
     },
 
