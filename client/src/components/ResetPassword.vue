@@ -3,31 +3,13 @@
   <v-layout row wrap justify-space-around>
     <v-flex mb-1 xs12 md12>
       <h2 class="display-3">
-        Register
+        Reset Password
       </h2>
     </v-flex>
 
     <v-flex xs12 md4>
       <form>
         <v-layout my-4 row wrap justify-space-around>
-          <v-flex d-flex xs12 md12>
-            <v-text-field
-              name="email"
-              v-model="email"
-              placeholder="Email"
-              single-line
-              solo
-            ></v-text-field>
-          </v-flex>
-          <v-flex d-flex xs12 md12>
-            <v-text-field
-              name="Username"
-              placeholder="Username"
-              v-model="username"
-              single-line
-              solo
-              ></v-text-field>
-          </v-flex>
           <v-flex d-flex xs12 md12>
             <v-text-field
               name="Password"
@@ -50,11 +32,12 @@
           </v-flex>
           <v-flex d-flex xs6 md5>
             <v-btn
-              @click="register"
+              @click="resetPassword"
             >
-              Register
+              Submit
             </v-btn>
           </v-flex>
+          <v-flex d-flex xs6 md12>
           <v-alert
             v-if="this.error"
             :value="true"
@@ -62,10 +45,17 @@
           >
             {{error}}
           </v-alert>
+          <v-alert
+            v-else-if="this.success"
+            :value="true"
+            type="success"
+          >
+            Your password has been successfully reset! Redirecting to login page.
+          </v-alert>
+          </v-flex>
         </v-layout>
       </form>
-      <div 
-        v-if="loading">
+      <div v-if="loading">
         <v-progress-circular
           indeterminate
           color="primary"
@@ -81,41 +71,57 @@ import AuthenticationService from '@/services/AuthenticationService'
 import store from '@/store/store'
 
 export default {
-  data () {
+  data() {
     return {
       loading: false,
-      email: '',
-      username: '',
       password: '',
       passwordConfirmation: '',
-      error: null
+      error: null,
+      success: null
     }
   },
+
+  mounted() {
+    this.validateToken();
+  },
+
   methods: {
-    async register() {
-      this.loading = true
+    async validateToken() {
+      const credentials = {
+        userId: this.$store.state.route.params.id,
+        userToken: this.$store.state.route.params.token
+      };
 
       try {
-        const response = await AuthenticationService.register({
-          email: this.email,
-          username: this.username,
+        var user = await AuthenticationService.getUser(credentials);
+        if (!user) return this.error = 'Invalid user';
+
+      } catch (err) {
+        this.error = 'Link is no longer valid';
+        throw this.error;
+      }
+    },
+
+    async resetPassword() {
+      this.loading = true;
+      try {
+        var response = await AuthenticationService.resetPassword({
+          userId: this.$store.state.route.params.id,
+          token: this.$store.state.route.params.token,
           password: this.password,
           passwordConfirmation: this.passwordConfirmation,
-        })
-        
-        store.dispatch('setToken', localStorage.token)
-        store.dispatch('setUser', localStorage.user)
-        store.dispatch('setUserId', localStorage.userId)
+        });
+        this.success = true;
+        this.password = null;
+        this.passwordConfirmation = null;
 
-        this.loading = false
-        this.$router.push({
-          name: 'Landing'
-        })
+        setTimeout(() => this.$router.push({name: 'login'}), 3000);
 
-      } catch(err) {
-        this.loading = false
-        this.error = 'Bad username, email or password.'
-        throw this.error
+      } catch (err) {
+        this.loading = false;
+        debugger
+        this.error = 'Passwords do not match';
+        throw this.error;
       }
     }
   }

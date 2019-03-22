@@ -41,6 +41,12 @@ Enter a username, email and password and registration is complete. On successful
 
 Returning users can login by clicking the 'Login' link in the navigation bar. On successful login, you will be redirected to the landing page.
 
+## Forgot Password
+
+A forgot your password function is implemented by generating a unique `jsonwebtoken` that is sent as a URL parameter via email. The link (ie, `jwt`) will expire after 10 minutes.
+
+To utilize the forgot your password feature to reset your password, click Login and 'Forgot your Password' link. _Note: email must belong to a valid user or the app will throw an error_.
+
 ## View All Parks, Restaurants or Events
 
 Use the links in the navigation bar or click the card image at the bottom of the landing page to view a list of Atlanta's dog parks, dog-friendly restaurants, or dog-related events. Parks, restaurants and events are sorted alphabetically by name. 

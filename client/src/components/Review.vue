@@ -13,12 +13,18 @@
             placeholder="Write your review here">
           </v-textarea>
         </v-flex>
-        <div class="error" v-html="error" />
         <v-layout align-start row fill-height>
           <v-btn
             @click="createReview">
             Submit
           </v-btn>
+          <v-alert
+            v-if="this.error"
+            :value="true"
+            type="error"
+          >
+            {{error}}
+          </v-alert>
         </v-layout>
       </form>
     </div>
