@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.post('/register', validation.validatePasswords, AuthenticationController.register)
     app.post('/login', AuthenticationController.login)
     app.post('/send_reset_email', AuthenticationController.sendResetPasswordEmail)
-    app.get('/get_user/:id', AuthenticationController.getUser)
+    app.get('/get_user/:id/:token', AuthenticationController.getUser)
     app.post('/reset_password', validation.validatePasswords, AuthenticationController.resetPassword)
     
     //Park routes

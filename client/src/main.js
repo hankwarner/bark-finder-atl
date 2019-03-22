@@ -8,12 +8,10 @@ import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import prodEnv from '../config/prod.env'
-import jwt from 'jsonwebtoken'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
-Vue.use(jwt)
 
 sync(store, router)
 

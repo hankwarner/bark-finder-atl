@@ -37,6 +37,7 @@
               Submit
             </v-btn>
           </v-flex>
+          <v-flex d-flex xs6 md12>
           <v-alert
             v-if="this.error"
             :value="true"
@@ -49,8 +50,9 @@
             :value="true"
             type="success"
           >
-            Your password has been successfully reset! Now being redirected to login page.
+            Your password has been successfully reset! Redirecting to login page.
           </v-alert>
+          </v-flex>
         </v-layout>
       </form>
       <div v-if="loading">
@@ -85,16 +87,15 @@ export default {
 
   methods: {
     async validateToken() {
-      var userId = this.$store.state.route.params.id
-      var userToken = this.$store.state.route.params.token
+      const credentials = {
+        userId: this.$store.state.route.params.id,
+        userToken: this.$store.state.route.params.token
+      };
 
       try {
-        var user = await AuthenticationService.getUser(userId);
+        var user = await AuthenticationService.getUser(credentials);
         if (!user) return this.error = 'Invalid user';
-        var secret = user.data.password + user.data.createdAt;
-        debugger
-        var payload = jwt.decode(userToken, secret);
-        debugger
+
       } catch (err) {
         this.error = 'Link is no longer valid';
         throw this.error;
@@ -105,18 +106,20 @@ export default {
       this.loading = true;
       try {
         var response = await AuthenticationService.resetPassword({
-            userId: this.$store.state.route.params.id,
-            token: this.$store.state.route.params.token,
-            password: this.password,
-            passwordConfirmation: this.passwordConfirmation,
+          userId: this.$store.state.route.params.id,
+          token: this.$store.state.route.params.token,
+          password: this.password,
+          passwordConfirmation: this.passwordConfirmation,
         });
         this.success = true;
-        this.loading = false;
-        this.$router.push({
-            name: 'Login'
-        });
+        this.password = null;
+        this.passwordConfirmation = null;
+
+        setTimeout(() => this.$router.push({name: 'login'}), 3000);
+
       } catch (err) {
         this.loading = false;
+        debugger
         this.error = 'Passwords do not match';
         throw this.error;
       }
