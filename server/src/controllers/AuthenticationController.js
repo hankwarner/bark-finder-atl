@@ -3,7 +3,7 @@ const passport = require("passport")
 const User = require('../db/models').User
 const jwtSecret = require('../config/jwtConfig')
 const jwt = require('jsonwebtoken')
-const sgMail = require('@sendgrid/mail')
+// const sgMail = require('@sendgrid/mail')
 
 module.exports = {
     register(req, res) {
