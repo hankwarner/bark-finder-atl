@@ -9,7 +9,7 @@ const helper = require("./auth/helpers")
 
 module.exports = (app) => {
     var corsOptions = {
-        origin: 'https://barkfinderatl.netlify.com',
+        origin: 'https://bark-finder-atl.herokuapp.com',
         optionsSuccessStatus: 200
     }
 
