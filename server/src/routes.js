@@ -1,3 +1,4 @@
+const cors = require('cors');
 const AuthenticationController = require('./controllers/AuthenticationController')
 const ParkController = require('./controllers/ParkController')
 const ReviewController = require('./controllers/ReviewController')
@@ -8,7 +9,7 @@ const helper = require("./auth/helpers")
 
 module.exports = (app) => {
     //User routes
-    app.post('/register', validation.validatePasswords, AuthenticationController.register)
+    app.post('/register', cors(), validation.validatePasswords, AuthenticationController.register)
     app.post('/login', AuthenticationController.login)
     app.post('/send_reset_email', AuthenticationController.sendResetPasswordEmail)
     app.get('/get_user/:id/:token', AuthenticationController.getUser)
