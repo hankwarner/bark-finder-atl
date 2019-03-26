@@ -8,15 +8,20 @@ const validation = require("./validation")
 const helper = require("./auth/helpers")
 
 module.exports = (app) => {
+    var corsOptions = {
+        origin: 'https://barkfinderatl.netlify.com',
+        optionsSuccessStatus: 200
+    }
+
     //User routes
-    app.post('/register', cors(), validation.validatePasswords, AuthenticationController.register)
+    app.post('/register', cors(corsOptions), validation.validatePasswords, AuthenticationController.register)
     app.post('/login', AuthenticationController.login)
     app.post('/send_reset_email', AuthenticationController.sendResetPasswordEmail)
     app.get('/get_user/:id/:token', AuthenticationController.getUser)
     app.post('/reset_password', validation.validatePasswords, AuthenticationController.resetPassword)
     
     //Park routes
-    app.get('/parks', ParkController.index)
+    app.get('/parks', cors(corsOptions), ParkController.index)
     app.get('/parks/:id', ParkController.show)
     app.post('/parks/:id/review/create', helper.ensureAuthenticated, ReviewController.create)
     app.post('/parks/:parkId/review/:id/destroy', ReviewController.destroy)

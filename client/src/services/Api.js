@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default () => {
     // var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    // var productionUrl = 'https://bark-finder-atl.herokuapp.com';
+    var productionUrl = 'https://bark-finder-atl.herokuapp.com';
 
     if(process.env.NODE_ENV === 'development') {
         return axios.create({
@@ -10,7 +10,7 @@ export default () => {
         })
     } else {
         return axios.create({
-            baseURL: 'https://bark-finder-atl.herokuapp.com'
+            baseURL: productionUrl
         })
     }
 }
