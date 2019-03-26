@@ -90,6 +90,7 @@ module.exports = {
                     var secret = user.password + user.createdAt;
                     var token = jwt.sign({ user }, secret, { expiresIn: 600 });
 
+                    const sgMail = require('@sendgrid/mail')
                     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                     getURLBase();
                     const msg = {
