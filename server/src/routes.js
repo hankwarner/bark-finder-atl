@@ -8,11 +8,6 @@ const validation = require("./validation")
 const helper = require("./auth/helpers")
 
 module.exports = (app) => {
-    // var corsOptions = {
-    //     origin: 'https://bark-finder-atl.herokuapp.com',
-    //     optionsSuccessStatus: 200
-    // }
-
     //User routes
     app.post('/register', validation.validatePasswords, AuthenticationController.register)
     app.post('/login', AuthenticationController.login)
