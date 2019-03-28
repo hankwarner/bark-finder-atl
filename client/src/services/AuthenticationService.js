@@ -50,9 +50,10 @@ export default {
         }
     },
 
-    async getUser(credentials) {
+    async callValidateToken(credentials) {
         try {
-            var user = await Api().get(`get_user/${credentials.userId}/${credentials.userToken}`);
+            var user = await Api().get(`validate_token/${credentials.userId}/${credentials.userToken}`);
+            debugger
             return user;
         } catch (err) {
             console.log(err);

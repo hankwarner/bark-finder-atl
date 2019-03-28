@@ -1,4 +1,3 @@
-const cors = require('cors');
 const AuthenticationController = require('./controllers/AuthenticationController')
 const ParkController = require('./controllers/ParkController')
 const ReviewController = require('./controllers/ReviewController')
@@ -12,7 +11,7 @@ module.exports = (app) => {
     app.post('/register', validation.validatePasswords, AuthenticationController.register)
     app.post('/login', AuthenticationController.login)
     app.post('/send_reset_email', AuthenticationController.sendResetPasswordEmail)
-    app.get('/get_user/:id/:token', AuthenticationController.getUser)
+    app.get('/validate_token/:id/:token', AuthenticationController.validateToken)
     app.post('/reset_password', validation.validatePasswords, AuthenticationController.resetPassword)
     
     //Park routes

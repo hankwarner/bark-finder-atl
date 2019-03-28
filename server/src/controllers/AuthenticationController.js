@@ -108,7 +108,7 @@ module.exports = {
         }
     },
 
-    async getUser(req, res) {
+    async validateToken(req, res) {
         var userId = req.params.id;
         var userToken = req.params.token;
 
