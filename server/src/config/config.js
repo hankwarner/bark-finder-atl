@@ -1,7 +1,7 @@
-require("dotenv").config()
-require('newrelic')
-const passportConfig = require("./passport-config")
-const expressValidator = require("express-validator")
+require("dotenv").config();
+require('newrelic');
+const passportConfig = require("./passport-config");
+const expressValidator = require("express-validator");
 
 
 module.exports = {
@@ -9,13 +9,13 @@ module.exports = {
 
     init(app) {
 
-        passportConfig.init(app)
+        passportConfig.init(app);
 
-        app.use(expressValidator())
+        app.use(expressValidator());
         
         app.use((req,res,next) => {
             res.locals.currentUser = req.user;
-            next()
+            next();
         })
     }
 }

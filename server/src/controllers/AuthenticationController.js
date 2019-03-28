@@ -1,9 +1,8 @@
-const authenticationQueries = require('../db/queries/authenticationQueries')
-const passport = require("passport")
-const User = require('../db/models').User
-const jwtSecret = require('../config/jwtConfig')
-const jwt = require('jsonwebtoken')
-const sgMail = require('@sendgrid/mail')
+const authenticationQueries = require('../db/queries/authenticationQueries');
+const passport = require("passport");
+const jwtSecret = require('../config/jwtConfig');
+const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
 
 module.exports = {
     register(req, res) {
@@ -11,11 +10,11 @@ module.exports = {
             email: req.body.email,
             username: req.body.username,
             password: req.body.password
-        }
+        };
 
         authenticationQueries.createUser(newUser, (err, user) => {
             if(err) {
-                res.status(400).send(err.message)
+                res.status(400).send(err.message);
             } else {
                 passport.authenticate("local")(req, res, () => {
                     req.logIn(user, err => {
@@ -30,7 +29,7 @@ module.exports = {
                                     token: token,
                                     message: 'Registration successful',
                                     user: user
-                                })
+                                });
                             }
                         })
                     })
@@ -42,12 +41,12 @@ module.exports = {
     login(req, res, next) {
         passport.authenticate('login', (err, user, info) => {
             if(err) {
-                console.log(err)
-                res.status(400).send(err.message)
+                console.log(err);
+                res.status(400).send(err.message);
             }
             if(info !== undefined) {
-                console.log(info.message)
-                res.send(info.message)
+                console.log(info.message);
+                res.send(info.message);
             } else {
                 req.logIn(user, err => {
                     authenticationQueries.getUserByUsername(user.username, (err, user) => {
@@ -61,7 +60,7 @@ module.exports = {
                                 token: token,
                                 message: 'Login successful',
                                 user: user
-                            })
+                            });
                         }
                     })
                 })
@@ -115,13 +114,11 @@ module.exports = {
 
         authenticationQueries.getUserById(userId, (err, user) => {
             var secret = user.password + user.createdAt;
-            //TODO move to authHelpers
-            //TODO get rid of this function all together and mvoe this into resetPassword function
             jwt.verify(userToken, secret, (payload) => {
                 try {
-                    if(payload.name.includes('Error')) {
+                    if(payload && payload.name.includes('Error')) {
                         res.status(400)
-                        throw 'Token is expired'
+                        throw 'Link is expired'
                     } else {
                         return res.status(200).send(user);
                     }
@@ -132,8 +129,8 @@ module.exports = {
         });
     },
 
-    async resetPassword(req, res) {        
-        try {
+    async resetPassword(req, res) {     
+        try {            
             let userIdAndNewPassword = {
                 userId: req.body.userId,
                 token: req.body.token,
@@ -146,7 +143,7 @@ module.exports = {
 
         } catch (err) {
             console.log(err);
-            return res.status(400).send(err);
+            res.status(400).send(err);
         }
     }
 }
