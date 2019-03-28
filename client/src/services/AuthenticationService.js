@@ -60,9 +60,9 @@ export default {
         }
     },
 
-    resetPassword(credentials) {
+    async resetPassword(credentials) {
         try {
-            Api().post('reset_password', credentials);       
+            var response = await Api().post('reset_password', credentials);       
         } catch (err) {
             console.log(err);
             return res.send(err);

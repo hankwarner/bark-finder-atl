@@ -10,48 +10,50 @@
     <v-flex xs12 md4>
       <form>
         <v-layout my-4 row wrap justify-space-around>
-          <v-flex d-flex xs12 md12>
-            <v-text-field
-              name="Password"
-              type="password"
-              placeholder="Password"
-              v-model="password"
-              single-line
-              solo
-            ></v-text-field>
-          </v-flex>
-          <v-flex d-flex xs12 md12>
-            <v-text-field
-              name="passwordConfirmation"
-              placeholder="Confirm password"
-              type="password"
-              v-model="passwordConfirmation"
-              single-line
-              solo
-            ></v-text-field>
-          </v-flex>
-          <v-flex d-flex xs6 md5>
-            <v-btn
-              @click="resetPassword"
-            >
-              Submit
-            </v-btn>
-          </v-flex>
+          <span v-if="this.validToken">
+            <v-flex d-flex xs12 md12>
+              <v-text-field
+                name="Password"
+                type="password"
+                placeholder="Password"
+                v-model="password"
+                single-line
+                solo
+              ></v-text-field>
+            </v-flex>
+            <v-flex d-flex xs12 md12>
+              <v-text-field
+                name="passwordConfirmation"
+                placeholder="Confirm password"
+                type="password"
+                v-model="passwordConfirmation"
+                single-line
+                solo
+              ></v-text-field>
+            </v-flex>
+            <v-flex d-flex xs6 md5>
+              <v-btn
+                @click="resetPassword"
+              >
+                Submit
+              </v-btn>
+            </v-flex>
+          </span>
           <v-flex d-flex xs6 md12>
-          <v-alert
-            v-if="this.error"
-            :value="true"
-            type="error"
-          >
-            {{error}}
-          </v-alert>
-          <v-alert
-            v-else-if="this.success"
-            :value="true"
-            type="success"
-          >
-            Your password has been successfully reset! Redirecting to login page.
-          </v-alert>
+            <v-alert
+              v-if="this.error"
+              :value="true"
+              type="error"
+            >
+              {{error}}
+            </v-alert>
+            <v-alert
+              v-else-if="this.success"
+              :value="true"
+              type="success"
+            >
+              Your password has been successfully reset! Redirecting to login page.
+            </v-alert>
           </v-flex>
         </v-layout>
       </form>
@@ -74,6 +76,7 @@ export default {
   data() {
     return {
       loading: false,
+      validToken: false,
       password: '',
       passwordConfirmation: '',
       error: null,
@@ -94,11 +97,15 @@ export default {
 
       try {
         var user = await AuthenticationService.getUser(credentials);
-        if (!user) return this.error = 'Invalid user';
+        if (!user) {
+          throw 'Link is no longer valid'
+        } else {
+          this.validToken = true;
+        }
 
       } catch (err) {
+        console.log(err);
         this.error = 'Link is no longer valid';
-        throw this.error;
       }
     },
 
@@ -115,13 +122,12 @@ export default {
         this.password = null;
         this.passwordConfirmation = null;
 
-        setTimeout(() => this.$router.push({name: 'login'}), 3000);
+        setTimeout(() => this.$router.push({name: 'login'}), 2500);
 
       } catch (err) {
+        console.log(err);
         this.loading = false;
-        debugger
         this.error = 'Passwords do not match';
-        throw this.error;
       }
     }
   }
