@@ -96,7 +96,7 @@ export default {
       };
 
       try {
-        var user = await AuthenticationService.getUser(credentials);
+        var user = await AuthenticationService.callValidateToken(credentials);
         if (!user) {
           throw 'Link is no longer valid'
         } else {
